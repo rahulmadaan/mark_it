@@ -1,0 +1,115 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  overflow: hidden;
+
+  background-image: url("http://shoppopgallery.com/wp-content/uploads/2019/06/full-hd-backgrounds-wallpapers-wallpaper-cave-peaceful-hd-background-interesting-8.jpg");
+  background-position: center;
+}
+
+/* --------------------header ------------------------- */
+.header {
+  width: 100%;
+  height: 7%;
+  /* border: 2px solid green; */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.current-time-div {
+  margin-right: 2%;
+  font-size: 20px;
+}
+/* ----------------- main ----------------------------- */
+.main {
+  width: 100%;
+  height: 86%;
+  /* border: 2px solid hotpink; */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.analog-clock-container {
+  width: 100%;
+  height: 35%;
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: flex-end;
+}
+
+.analog-clock-container canvas {
+  width: auto;
+  height: 50%;
+}
+.greeting-container {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid green; */
+
+  font-family: "Courier New", Courier, monospace;
+  font-size: 50px;
+  letter-spacing: 8px;
+  font-family: serif;
+  color: white;
+}
+
+/*-------------------- footer----------------------- */
+.footer {
+  width: 100%;
+  height: 7%;
+
+  display: flex;
+  justify-content: center;
+  /* border: 3px solid red; */
+}
+footer ::placeholder {
+  color: skyblue;
+}
+
+.name-input-div {
+  background: none;
+  color: Black;
+  width: 60%;
+
+  display: flex;
+  justify-content: center;
+}
+
+#name-input {
+  width: 50%;
+  height: 100%;
+
+  border: none;
+  border-bottom: 1px solid skyblue;
+  background: none;
+  text-align: center;
+  color: Black;
+  font-size: 16px;
+}
+#name-input-button {
+  height: 5%;
+  width: 10%;
+  background: none;
+  color: #313131;
+  border: 1px solid #313131;
+  border-radius: 50px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+#name-input-button:focus {
+  outline: none;
+}
+#name-input:focus {
+  outline: none;
+}
+
+#name-input::placeholder {
+  text-align: center;
+}
