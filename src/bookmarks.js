@@ -30,6 +30,7 @@ const createCategorizedBookmarks = bookmarkList => {
     const anchorTag = getAchorTag(bookmark);
     newBookmark.className = "categorized-bookmark";
     newBookmark.appendChild(anchorTag);
+
     newCategory.appendChild(newBookmark);
   });
   document

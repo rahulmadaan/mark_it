@@ -34,21 +34,9 @@ const displayUser = () => {
   }
 };
 
-const test = () => {
-  document.getElementById("btn").addEventListener("click", () => {
-    chrome.bookmarks.create(
-      { parentId: "1013838848484848", title: "Extension bookmarks" },
-      function() {
-        console.log("added folder: ");
-      }
-    );
-  });
-};
-
 const initialize = () => {
   displayUser();
   attachEventListenerOnButton();
-  test();
 };
 
 window.onload = initialize;
