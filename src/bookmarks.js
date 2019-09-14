@@ -5,6 +5,7 @@ const getAchorTag = bookmark => {
   const anchorTag = document.createElement("a");
   anchorTag.innerHTML = bookmark.title;
   anchorTag.href = bookmark.url;
+  anchorTag.target = "_blank";
   return anchorTag;
 };
 
