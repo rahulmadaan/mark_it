@@ -4,6 +4,7 @@ body {
   height: 100%;
   margin: 0;
   overflow: hidden;
+  font-size: 14px;
 }
 a {
   text-decoration: none;
@@ -33,27 +34,29 @@ a {
   height: 100%;
   margin: 1%;
   border: 1px solid black;
+  border-radius: 20px;
 
   overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .uncategorized-bookmark {
   width: 95%;
   height: 10%;
-  border: 1px solid green;
   margin: 1px;
   text-align: center;
-  font-size: 16px;
-  border-radius: 20px;
+  text-decoration: underline;
+  padding: 3%;
 }
 /* ------------------ categorized bookmarks --------------------------- */
 #categorized-bookmarks-fixed {
   width: 90%;
   height: 100%;
   margin: 1%;
-  border: 1px solid red;
+  border: 1px solid black;
   text-align: center;
-  overflow: scroll;
+  border-radius: 20px;
 }
 
 .category-new {
@@ -68,10 +71,9 @@ a {
 .categorized-bookmark {
   width: 99%;
   height: 10%;
-  border: 1px solid saddlebrown;
-  margin-top: 1%;
-  border-radius: 20px;
   text-align: center;
   vertical-align: middle;
-  overflow: hidden;
+
+  text-decoration: underline;
+  padding: 2%;
 }
