@@ -10,9 +10,7 @@ const getAchorTag = bookmark => {
 };
 
 const setupUncategorizedList = bookmark => {
-  const bookmarksList = document.getElementById(
-    "uncategorized-bookmarks-fixed"
-  );
+  const bookmarksList = document.getElementById("uncategorized-bookmarks-body");
   const anchorTag = getAchorTag(bookmark);
 
   const newBookmark = document.createElement("div");
@@ -30,11 +28,10 @@ const createCategorizedBookmarks = bookmarkList => {
     const anchorTag = getAchorTag(bookmark);
     newBookmark.className = "categorized-bookmark";
     newBookmark.appendChild(anchorTag);
-
     newCategory.appendChild(newBookmark);
   });
   document
-    .getElementById("categorized-bookmarks-fixed")
+    .getElementById("categorized-bookmarks-body")
     .appendChild(newCategory);
 };
 
