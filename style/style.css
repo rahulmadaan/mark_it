@@ -61,39 +61,37 @@ body {
   height: 7%;
 
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
 }
 footer ::placeholder {
   color: skyblue;
 }
 
-.name-input-div {
-  background: none;
-  color: Black;
-  width: 60%;
-
+.user-input-div {
+  width: 40%;
+  height: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 #name-input {
-  width: 50%;
-  height: 100%;
+  width: 70%;
+  height: 50%;
 
   border: none;
   border-bottom: 1px solid skyblue;
   background: none;
   text-align: center;
-  color: Black;
+  color: white;
   font-size: 16px;
 }
 #name-input-button {
-  height: 5%;
-  width: 10%;
+  width: 25%;
+  height: 50%;
+
   background: none;
-  color: #313131;
-  border: 1px solid #313131;
-  border-radius: 50px;
+  color: white;
+  border: 1px solid white;
   font-size: 12px;
   cursor: pointer;
 }
