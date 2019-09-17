@@ -9,6 +9,14 @@ const getAchorTag = bookmark => {
   return anchorTag;
 };
 
+const formatBookmark = bookmark => {
+  const newBookmark = document.createElement("div");
+  const anchorTag = getAchorTag(bookmark);
+  newBookmark.className = "categorized-bookmark";
+  newBookmark.appendChild(anchorTag);
+  return newBookmark;
+};
+
 const setupUncategorizedList = bookmark => {
   const bookmarksList = document.getElementById("uncategorized-bookmarks-body");
   const anchorTag = getAchorTag(bookmark);
@@ -23,13 +31,21 @@ const setupUncategorizedList = bookmark => {
 const createCategorizedBookmarks = bookmarkList => {
   const newCategory = document.createElement("div");
   newCategory.className = "category-new";
+
+  const newCategoryHeading = document.createElement("div");
+  newCategoryHeading.className = "category-heading";
+  newCategoryHeading.innerHTML = bookmarkList.title;
+
+  const newCategoryBody = document.createElement("div");
+  newCategoryBody.className = "category-body-bookmarks";
+
   bookmarkList.children.map(bookmark => {
-    const newBookmark = document.createElement("div");
-    const anchorTag = getAchorTag(bookmark);
-    newBookmark.className = "categorized-bookmark";
-    newBookmark.appendChild(anchorTag);
-    newCategory.appendChild(newBookmark);
+    const newBookmark = formatBookmark(bookmark);
+    newCategoryBody.appendChild(newBookmark);
   });
+
+  newCategory.appendChild(newCategoryBody);
+  newCategory.appendChild(newCategoryHeading);
   document
     .getElementById("categorized-bookmarks-body")
     .appendChild(newCategory);
@@ -43,6 +59,7 @@ const loadBookmarks = () => {
       if (isBookmarkUncategorized(bookmark)) {
         setupUncategorizedList(bookmark);
       } else {
+        console.log("bookmark is", bookmark);
         createCategorizedBookmarks(bookmark);
       }
     });

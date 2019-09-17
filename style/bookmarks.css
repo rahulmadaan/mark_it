@@ -43,7 +43,7 @@ a {
 #uncategorized-bookmarks-body {
   width: 100%;
   height: 95%;
-  margin: 1%;
+  padding: 4%;
   border: 1px solid black;
   border-radius: 20px;
 
@@ -79,7 +79,6 @@ a {
   border-radius: 20px;
   overflow: scroll;
 }
-
 .category-new {
   width: 30%;
   height: 55%;
@@ -88,6 +87,18 @@ a {
   float: left;
   overflow: scroll;
   border-radius: 20px;
+}
+.category-heading {
+  width: 100%;
+  height: 5%;
+  background-color: aliceblue;
+  border-bottom: 1px solid green;
+}
+
+.category-body-bookmarks {
+  width: 100%;
+  height: 90%;
+  overflow: scroll;
 }
 
 .categorized-bookmark {
