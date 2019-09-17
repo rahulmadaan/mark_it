@@ -1,4 +1,3 @@
-const createNewCategory = title => console.log(title);
 const isBookmarkUncategorized = bookmark => !bookmark.children;
 
 const getAchorTag = bookmark => {
@@ -17,6 +16,24 @@ const formatBookmark = bookmark => {
   return newBookmark;
 };
 
+const createNewCategory = () => {
+  const category = document.createElement("div");
+  category.className = "category-new";
+  return category;
+};
+
+const createCategoryHeading = heading => {
+  const category = document.createElement("div");
+  category.className = "category-heading";
+  category.innerHTML = heading;
+  return category;
+};
+const createCategoryBody = () => {
+  const category = document.createElement("div");
+  category.className = "category-body-bookmarks";
+  return category;
+};
+
 const setupUncategorizedList = bookmark => {
   const bookmarksList = document.getElementById("uncategorized-bookmarks-body");
   const anchorTag = getAchorTag(bookmark);
@@ -29,15 +46,9 @@ const setupUncategorizedList = bookmark => {
 };
 
 const createCategorizedBookmarks = bookmarkList => {
-  const newCategory = document.createElement("div");
-  newCategory.className = "category-new";
-
-  const newCategoryHeading = document.createElement("div");
-  newCategoryHeading.className = "category-heading";
-  newCategoryHeading.innerHTML = bookmarkList.title;
-
-  const newCategoryBody = document.createElement("div");
-  newCategoryBody.className = "category-body-bookmarks";
+  const newCategory = createNewCategory();
+  const newCategoryHeading = createCategoryHeading(bookmarkList.title);
+  const newCategoryBody = createCategoryBody();
 
   bookmarkList.children.map(bookmark => {
     const newBookmark = formatBookmark(bookmark);
