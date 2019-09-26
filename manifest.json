@@ -1,7 +1,7 @@
 {
   "version": "1.0",
 
-  "name": "Simple Greeting Dashboard",
+  "name": "Mark It",
   "description": "This Chrome extension greets the user each time they open a new tab",
 
   "manifest_version": 2,

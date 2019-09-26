@@ -103,9 +103,10 @@ a {
 
 .categorized-bookmark {
   width: 99%;
-  height: 10%;
+  height: auto;
   text-align: center;
   vertical-align: middle;
+  border: 2px solid red;
 
   text-decoration: underline;
   padding: 2%;

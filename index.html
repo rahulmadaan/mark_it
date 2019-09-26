@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Simple Greeting Dashboard</title>
+    <title>Mark It</title>
     <script src="./src/main.js"></script>
     <link
       rel="stylesheet"
@@ -11,13 +11,19 @@
   </head>
   <body>
     <header class="header">
-      <a href="./public/bookmarks.html"> click me here!!! </a>
+      <a href="./public/bookmarks.html"> Your Bookmarks </a>
     </header>
-    <main class="main">
+    <main class="main" id="main-body">
       <div class="analog-clock-container" id="analog-clock-container">
         <canvas id="canvas"> clock</canvas>
       </div>
-      <div class="greeting-container" id="greeting"></div>
+      <div class="greeting-container" id="greeting">
+        <div id="greeting-prefix" class="greeting-style greeting-prefix"></div>
+        <div
+          id="greeting-username"
+          class="greeting-style greeting-username"
+        ></div>
+      </div>
     </main>
     <footer class="footer">
       <div class="user-input-div">
