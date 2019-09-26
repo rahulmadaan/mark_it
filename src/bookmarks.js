@@ -11,6 +11,7 @@ const getAchorTag = bookmark => {
 const formatBookmark = bookmark => {
   const newBookmark = document.createElement("div");
   const anchorTag = getAchorTag(bookmark);
+
   newBookmark.className = "categorized-bookmark";
   newBookmark.appendChild(anchorTag);
   return newBookmark;
@@ -70,10 +71,13 @@ const loadBookmarks = () => {
       if (isBookmarkUncategorized(bookmark)) {
         setupUncategorizedList(bookmark);
       } else {
-        console.log("bookmark is", bookmark);
         createCategorizedBookmarks(bookmark);
       }
     });
   });
 };
-loadBookmarks();
+
+const initialize = () => {
+  loadBookmarks();
+};
+initialize();
