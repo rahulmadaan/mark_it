@@ -1,39 +1,41 @@
-const getPastData = () => {
-  const data = localStorage.getItem("activity");
+const ACTIVITY = "activity";
+
+const getActivities = () => {
+  const data = localStorage.getItem(ACTIVITY);
   return JSON.parse(data);
 };
 
 const isUrlExists = url => {
-  const pastData = getPastData();
+  const pastData = getActivities();
   return pastData.filter(entry => entry.url == url)[0];
 };
 
-const updateLocalData = data => {
-  localStorage.setItem("activity", JSON.stringify(data));
+const updateActivities = data => {
+  localStorage.setItem(ACTIVITY, JSON.stringify(data));
 };
 
-const incrementVote = url => {
-  const pastData = getPastData();
+const incrementCount = url => {
+  const pastData = getActivities();
   pastData.map(tab => {
     if (tab.url == url) {
       tab.count = tab.count + 1;
     }
   });
-  updateLocalData(pastData);
+  updateActivities(pastData);
 };
 
-const addNewEntry = url => {
-  const data = getPastData();
+const addNewActivity = url => {
+  const data = getActivities();
   data.push({ url: url, count: 0 });
-  localStorage.setItem("activity", JSON.stringify(data));
+  updateActivities(data);
 };
 
 const updateActivityData = url => {
   if (isUrlExists(url)) {
-    incrementVote(url);
+    incrementCount(url);
     return;
   }
-  addNewEntry(url);
+  addNewActivity(url);
 };
 
 const main = () => {
@@ -48,8 +50,8 @@ const main = () => {
   });
 };
 const initializeActivity = () => {
-  if (localStorage.getItem("activity") == null) {
-    localStorage.setItem("activity", JSON.stringify([]));
+  if (localStorage.getItem(ACTIVITY) == null) {
+    updateActivities([]);
   }
 };
 
