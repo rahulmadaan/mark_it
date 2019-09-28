@@ -1,7 +1,5 @@
-const ACTIVITY = "activity";
-
 const getActivities = () => {
-  const data = localStorage.getItem(ACTIVITY);
+  const data = localStorage.getItem("activity");
   return JSON.parse(data);
 };
 
@@ -11,7 +9,11 @@ const isUrlExists = url => {
 };
 
 const updateActivities = data => {
-  localStorage.setItem(ACTIVITY, JSON.stringify(data));
+  localStorage.setItem("activity", JSON.stringify(data));
+};
+
+const isUrlValid = url => {
+  return url !== "chrome://newtab/";
 };
 
 const incrementCount = url => {
@@ -19,14 +21,14 @@ const incrementCount = url => {
   pastData.map(tab => {
     if (tab.url == url) {
       tab.count = tab.count + 1;
+      updateActivities(pastData);
     }
   });
-  updateActivities(pastData);
 };
 
 const addNewActivity = url => {
   const data = getActivities();
-  data.push({ url: url, count: 0 });
+  data.push({ url, count: 0 });
   updateActivities(data);
 };
 
@@ -39,29 +41,28 @@ const updateActivityData = url => {
 };
 
 const main = () => {
-  chrome.tabs.getCurrent(current => {
-    chrome.tabs.getAllInWindow(tabs => {
-      tabs.map(tab => {
-        if (current && tab.active) {
-          updateActivityData(tab.url);
-        }
-      });
+  chrome.tabs.getAllInWindow(tabs => {
+    tabs.map(tab => {
+      if (tab.active && isUrlValid(tab.url)) {
+        updateActivityData(tab.url);
+      }
     });
   });
 };
-const initializeActivity = () => {
-  if (localStorage.getItem(ACTIVITY) == null) {
+const ensureStartUp = () => {
+  if (localStorage.getItem("activity") == null) {
     updateActivities([]);
   }
 };
+const startMonitoring = () => {
+  ensureStartUp();
 
-const initialize = () => {
-  initializeActivity();
   setInterval(() => {
     main();
   }, 1000);
 };
-initialize();
+
+startMonitoring();
 
 //-----------sampleJSON-------------------
 [
