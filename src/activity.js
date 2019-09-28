@@ -28,7 +28,8 @@ const incrementCount = url => {
 
 const addNewActivity = url => {
   const data = getActivities();
-  data.push({ url, count: 0 });
+  const timestamp = Date.now();
+  data.push({ url, count: 0, create_date: timestamp });
   updateActivities(data);
 };
 
@@ -68,6 +69,7 @@ startMonitoring();
 [
   {
     url: "domain.com",
-    count: 10
+    count: 10,
+    create_date: 1526587883944
   }
 ];
