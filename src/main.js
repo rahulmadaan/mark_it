@@ -91,8 +91,9 @@ const setUserName = userName => {
   if (currentHours > 15 && currentHours <= 23) {
     greetingPrefix = "Good Evening";
   }
-  document.getElementById("greeting-prefix").innerText = greetingPrefix;
-  document.getElementById("greeting-username").innerText = userName;
+  document.getElementById(
+    "greeting"
+  ).innerText = `${greetingPrefix} \t ${userName}`;
 };
 
 const clearInputField = () => {
