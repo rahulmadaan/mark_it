@@ -1,0 +1,16 @@
+- [x] Add README.md
+- [] Add functionality to change background image
+- [] Add functionality to 
+  - [] delete bookmarks
+  - [] delete category
+  - [] create bookmark
+  - [] create category
+  - [] move bookmarks to other categories
+- [] Move bookmarks manager to homepage itself
+- [] Add todo manager to
+  - [] Add todo items
+  - [] Delete todo items
+  - [] edit todo items
+  - [] schedule a notification for those items
+- [] Build a analytics tool for tracking websites user visits
+- [] Find alternative of chrome local storage
