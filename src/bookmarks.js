@@ -1,5 +1,18 @@
 const isBookmarkUncategorized = bookmark => !bookmark.children;
 
+const removeCategory = e => {
+  const id = e.target.id;
+  const title = id.split("|")[1];
+  const categoryId = id.split("|")[0];
+  const input = prompt("Please type in the name of the category to confirm.");
+  if (input == title) {
+    chrome.bookmarks.remove(categoryId.toString(), output =>
+      console.log(output)
+    );
+    location.reload();
+  }
+};
+
 const getAchorTag = bookmark => {
   const anchorTag = document.createElement("a");
   anchorTag.innerHTML = bookmark.title;
@@ -23,10 +36,18 @@ const createNewCategory = () => {
   return category;
 };
 
-const createCategoryHeading = heading => {
+const createCategoryHeader = (heading, categoryId) => {
   const category = document.createElement("div");
   category.className = "category-heading";
   category.innerHTML = heading;
+
+  const deleteButton = document.createElement("button");
+  deleteButton.id = `${categoryId}|${heading}`;
+  deleteButton.onclick = removeCategory;
+  deleteButton.className = "delete-category-btn";
+  deleteButton.innerHTML = "Remove";
+
+  category.appendChild(deleteButton);
   return category;
 };
 const createCategoryBody = () => {
@@ -48,7 +69,10 @@ const setupUncategorizedList = bookmark => {
 
 const createCategorizedBookmarks = bookmarkList => {
   const newCategory = createNewCategory();
-  const newCategoryHeading = createCategoryHeading(bookmarkList.title);
+  const newCategoryHeading = createCategoryHeader(
+    bookmarkList.title,
+    bookmarkList.id
+  );
   const newCategoryBody = createCategoryBody();
 
   bookmarkList.children.map(bookmark => {
