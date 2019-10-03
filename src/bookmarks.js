@@ -21,6 +21,14 @@ const getAchorTag = bookmark => {
   return anchorTag;
 };
 
+const createElement = (elementType, className, id, body) => {
+  const element = document.createElement(elementType);
+  element.className = className;
+  element.id = id;
+  element.innerHTML = body;
+  return element;
+};
+
 const formatBookmark = bookmark => {
   const newBookmark = document.createElement("div");
   const anchorTag = getAchorTag(bookmark);
@@ -36,10 +44,42 @@ const createNewCategory = () => {
   return category;
 };
 
+const showPopup = e => {
+  const categoryId = e.target.id;
+  const popup = document.getElementById("category-popup");
+
+  const popupHeader = createElement("div", "popup-header", "", "heading");
+
+  popup.appendChild(popupHeader);
+  popup.style.width = "50%"; // show popup
+
+  const popupBody = document.createElement("div");
+  popupBody.className = "popup-body";
+  chrome.bookmarks.getChildren(categoryId.toString(), bookmarks => {
+    bookmarks.map(bookmark => {
+      const entity = document.createElement("div");
+      entity.className = "popup-bookmark";
+
+      const element = document.createElement("div");
+      element.className = "popup-bookmark-description";
+      element.innerHTML = bookmark.title;
+
+      const deleteButton = createElement("div", "popup-bookmark-delete-btn", bookmark.id, "X");
+      entity.appendChild(element);
+      entity.appendChild(deleteButton);
+      popup.appendChild(entity);
+    });
+  });
+  notes;
+};
+
 const createCategoryHeader = (heading, categoryId) => {
   const category = document.createElement("div");
   category.className = "category-heading";
+  category.onclick = showPopup;
+  category.style.cursor = "pointer";
   category.innerHTML = heading;
+  category.id = categoryId;
 
   const deleteButton = document.createElement("button");
   deleteButton.id = `${categoryId}|${heading}`;
@@ -98,6 +138,28 @@ const loadBookmarks = () => {
         createCategorizedBookmarks(bookmark);
       }
     });
+  });
+};
+
+const displayCategory = categoryId => {
+  chrome.bookmarks.getChildren(categoryId.toString(), a => {
+    createPopup();
+  });
+};
+
+const createPopup = bookmarksList => {
+  const parent = document.getElementById("popup-list-div");
+  bookmarksList.map(entity => {
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "";
+    deleteButton.id = entity.id;
+    deleteButton.innerHTML = "Delete";
+
+    const bookmark = document.createElement("div");
+    bookmark.className = "";
+    bookmark.innerHTML = entity.title;
+
+    parent.appendChild(bookmark);
   });
 };
 
