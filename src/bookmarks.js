@@ -64,7 +64,12 @@ const showPopup = e => {
       element.className = "popup-bookmark-description";
       element.innerHTML = bookmark.title;
 
-      const deleteButton = createElement("div", "popup-bookmark-delete-btn", bookmark.id, "X");
+      const deleteButton = createElement(
+        "div",
+        "popup-bookmark-delete-btn",
+        bookmark.id,
+        "X"
+      );
       entity.appendChild(element);
       entity.appendChild(deleteButton);
       popup.appendChild(entity);
