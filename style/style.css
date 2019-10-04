@@ -5,7 +5,8 @@ body {
   margin: 0px;
   overflow: hidden;
 
-  background-image: url("http://shoppopgallery.com/wp-content/uploads/2019/06/full-hd-backgrounds-wallpapers-wallpaper-cave-peaceful-hd-background-interesting-8.jpg");
+  background-image: url("../public/bg.jpg");
+  background: image("");
   background-position: center;
 }
 
