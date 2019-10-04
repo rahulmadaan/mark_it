@@ -2,7 +2,7 @@
 - [] Add functionality to change background image
 - [] Add functionality to 
   - [] delete bookmarks
-  - [] delete category
+  - [x] delete category
   - [] create bookmark
   - [] create category
   - [] move bookmarks to other categories
