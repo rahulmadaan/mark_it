@@ -125,6 +125,7 @@ a {
   left: 25%;
   top: 20%;
   overflow: scroll;
+  border-radius: 20px;
 }
 .popup-header {
   width: 95%;
@@ -134,32 +135,40 @@ a {
   border-bottom: 1px solid black;
 }
 .popup-body {
-  width: 95%;
+  width: 90%;
   height: 90%;
 }
 
 .popup-bookmark {
-  width: 95%;
+  width: 96%;
   height: auto;
   border-bottom: 1px solid gray;
   border-radius: 50px;
+
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
   padding: 1%;
   margin-top: 1%;
 }
 
 .popup-bookmark-description {
-  width: 80%;
+  width: 85%;
   height: 100%;
+  padding: 0.5%;
   text-align: center;
   vertical-align: middle;
 }
 
 .popup-bookmark-delete-btn {
-  width: 15%;
-  height: 100%;
+  width: 5%;
+  height: auto;
   text-align: center;
   vertical-align: middle;
-  text-align: end;
 }
+/* .popup-close-btn {
+  width: 15%;
+  height: 10%;
+  text-align: center;
+  float: right;
+} */
