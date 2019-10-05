@@ -1,16 +1,9 @@
 const isBookmarkUncategorized = bookmark => !bookmark.children;
 
 const removeCategory = e => {
-  const id = e.target.id;
-  const title = id.split("|")[1];
-  const categoryId = id.split("|")[0];
-  const input = prompt("Please type in the name of the category to confirm.");
-  if (input == title) {
-    chrome.bookmarks.remove(categoryId.toString(), output =>
-      console.log(output)
-    );
-    location.reload();
-  }
+  const categoryId = e.target.id;
+  chrome.bookmarks.remove(categoryId.toString(), output => console.log(output));
+  location.reload();
 };
 
 const closePopup = () => {
@@ -56,7 +49,7 @@ const showPopup = e => {
   const popupCategoryRemoveBtn = createElement(
     "button",
     "popup-remove-category-btn",
-    "",
+    categoryId,
     "Delete"
   );
   popupCategoryRemoveBtn.onclick = removeCategory;
@@ -99,7 +92,6 @@ const showPopup = e => {
       popup.appendChild(entity);
     });
   });
-  notes;
 };
 
 const createCategoryHeader = (heading, categoryId) => {
@@ -109,14 +101,6 @@ const createCategoryHeader = (heading, categoryId) => {
   category.style.cursor = "pointer";
   category.innerHTML = heading;
   category.id = categoryId;
-
-  // const deleteButton = document.createElement("button");
-  // deleteButton.id = `${categoryId}|${heading}`;
-  // deleteButton.onclick = removeCategory;
-  // deleteButton.className = "delete-category-btn";
-  // deleteButton.innerHTML = "Remove";
-
-  // category.appendChild(deleteButton);
   return category;
 };
 const createCategoryBody = () => {
