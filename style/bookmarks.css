@@ -124,8 +124,8 @@ a {
   opacity: 0.9;
   left: 25%;
   top: 20%;
-  overflow: scroll;
   border-radius: 20px;
+  overflow: scroll;
 }
 .popup-header {
   width: 100%;
@@ -147,6 +147,7 @@ a {
   text-decoration: none;
   font-size: 16px;
   cursor: pointer;
+  outline: none;
 }
 .popup-heading {
   width: 70%;
@@ -162,6 +163,7 @@ a {
   text-decoration: none;
   font-size: 16px;
   cursor: pointer;
+  outline: none;
 }
 .popup-body {
   width: 90%;
@@ -194,6 +196,7 @@ a {
   height: auto;
   text-align: center;
   vertical-align: middle;
+  cursor: pointer;
 }
 /* .popup-close-btn {
   width: 15%;

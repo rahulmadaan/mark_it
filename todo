@@ -1,7 +1,7 @@
 - [x] Add README.md
 - [] Add functionality to change background image
 - [] Add functionality to 
-  - [] delete bookmarks
+  - [x] delete bookmarks
   - [x] delete category
   - [] create bookmark
   - [] create category

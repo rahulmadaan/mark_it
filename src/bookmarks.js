@@ -15,6 +15,23 @@ const removeCategory = e => {
   }
 };
 
+const rebuildPopup = (categoryId, title) => {
+  closePopup();
+  showPopup("", categoryId, title);
+};
+
+const deleteBookmark = e => {
+  const bookmarkId = e.target.id;
+  chrome.bookmarks.get(bookmarkId.toString(), output => {
+    const categoryId = output[0].parentId;
+    chrome.bookmarks.get(categoryId.toString(), res => {
+      const categoryTitle = res[0].title;
+      chrome.bookmarks.remove(bookmarkId.toString(), res => {});
+      rebuildPopup(categoryId, categoryTitle);
+    });
+  });
+};
+
 const closePopup = () => {
   const popup = document.getElementById("category-popup");
   popup.style.width = "0%";
@@ -89,18 +106,21 @@ const createBookmarkEntity = (title, id) => {
     id,
     "X"
   );
+  deleteButton.onclick = deleteBookmark;
   bookmarkEntity.appendChild(bookmarkBody);
   bookmarkEntity.appendChild(deleteButton);
   return bookmarkEntity;
 };
 
-const showPopup = e => {
+const showPopup = (e, categoryId = "", heading = "") => {
   const popup = document.getElementById("category-popup");
   popup.style.width = "50%"; // show popup
-
-  const categoryId = e.target.id;
-  const heading = e.target.innerHTML;
-
+  if (!categoryId) {
+    categoryId = e.target.id;
+  }
+  if (!heading) {
+    heading = e.target.innerHTML;
+  }
   const popupHeader = buildPopupHeader(heading, categoryId);
 
   popup.appendChild(popupHeader);
