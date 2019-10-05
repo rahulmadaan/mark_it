@@ -16,7 +16,9 @@ const removeCategory = e => {
 };
 
 const closePopup = () => {
-  document.getElementById("category-popup").style.width = "0%";
+  const popup = document.getElementById("category-popup");
+  popup.style.width = "0%";
+  popup.innerHTML = "";
 };
 
 const getAchorTag = bookmark => {
