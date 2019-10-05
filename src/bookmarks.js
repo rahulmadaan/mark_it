@@ -35,10 +35,8 @@ const formatBookmark = bookmark => {
   return newBookmark;
 };
 
-const showPopup = e => {
-  const categoryId = e.target.id;
-  const popup = document.getElementById("category-popup");
-  const heading = e.target.innerHTML;
+const buildPopupHeader = (heading, categoryId) => {
+  const popupHeader = createElement("div", "popup-header");
 
   const popupCategoryRemoveBtn = createElement(
     "button",
@@ -47,6 +45,8 @@ const showPopup = e => {
     "Delete"
   );
   popupCategoryRemoveBtn.onclick = removeCategory;
+
+  const popupHeading = createElement("div", "popup-heading", "", heading);
   const popupCloseBtn = createElement(
     "button",
     "popup-close-btn",
@@ -54,36 +54,50 @@ const showPopup = e => {
     "close X"
   );
   popupCloseBtn.onclick = closePopup;
-  const popupHeading = createElement("div", "popup-heading", "", heading);
-  const popupHeader = createElement("div", "popup-header");
 
   popupHeader.appendChild(popupCategoryRemoveBtn);
   popupHeader.appendChild(popupHeading);
   popupHeader.appendChild(popupCloseBtn);
 
-  popup.appendChild(popupHeader);
+  return popupHeader;
+};
+
+const createBookmarkEntity = (title, id) => {
+  const bookmarkEntity = createElement("div", "popup-bookmark");
+
+  const bookmarkBody = createElement(
+    "div",
+    "popup-bookmark-description",
+    "",
+    title
+  );
+
+  const deleteButton = createElement(
+    "div",
+    "popup-bookmark-delete-btn",
+    id,
+    "X"
+  );
+  bookmarkEntity.appendChild(bookmarkBody);
+  bookmarkEntity.appendChild(deleteButton);
+  return bookmarkEntity;
+};
+
+const showPopup = e => {
+  const popup = document.getElementById("category-popup");
   popup.style.width = "50%"; // show popup
 
-  const popupBody = document.createElement("div");
-  popupBody.className = "popup-body";
+  const categoryId = e.target.id;
+  const heading = e.target.innerHTML;
+
+  const popupHeader = buildPopupHeader(heading, categoryId);
+
+  popup.appendChild(popupHeader);
+
   chrome.bookmarks.getChildren(categoryId.toString(), bookmarks => {
     bookmarks.map(bookmark => {
-      const entity = document.createElement("div");
-      entity.className = "popup-bookmark";
-
-      const element = document.createElement("div");
-      element.className = "popup-bookmark-description";
-      element.innerHTML = bookmark.title;
-
-      const deleteButton = createElement(
-        "div",
-        "popup-bookmark-delete-btn",
-        bookmark.id,
-        "X"
-      );
-      entity.appendChild(element);
-      entity.appendChild(deleteButton);
-      popup.appendChild(entity);
+      const bookmarkEntity = createBookmarkEntity(bookmark.title, bookmark.id);
+      popup.appendChild(bookmarkEntity);
     });
   });
 };
@@ -119,7 +133,7 @@ const createCategorizedBookmarks = bookmarkList => {
     const newBookmark = formatBookmark(bookmark);
     newCategoryBody.appendChild(newBookmark);
   });
-  
+
   const newCategoryHeading = createCategoryHeader(
     bookmarkList.title,
     bookmarkList.id
