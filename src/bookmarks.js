@@ -18,7 +18,7 @@ const getAchorTag = bookmark => {
   return anchorTag;
 };
 
-const createElement = (elementType, className, id, body) => {
+const createElement = (elementType, className, id = "", body = "") => {
   const element = document.createElement(elementType);
   element.className = className;
   element.id = id;
@@ -33,12 +33,6 @@ const formatBookmark = bookmark => {
   newBookmark.className = "categorized-bookmark";
   newBookmark.appendChild(anchorTag);
   return newBookmark;
-};
-
-const createNewCategory = () => {
-  const category = document.createElement("div");
-  category.className = "category-new";
-  return category;
 };
 
 const showPopup = e => {
@@ -61,7 +55,7 @@ const showPopup = e => {
   );
   popupCloseBtn.onclick = closePopup;
   const popupHeading = createElement("div", "popup-heading", "", heading);
-  const popupHeader = createElement("div", "popup-header", "", "");
+  const popupHeader = createElement("div", "popup-header");
 
   popupHeader.appendChild(popupCategoryRemoveBtn);
   popupHeader.appendChild(popupHeading);
@@ -95,17 +89,14 @@ const showPopup = e => {
 };
 
 const createCategoryHeader = (heading, categoryId) => {
-  const category = document.createElement("div");
-  category.className = "category-heading";
+  const category = createElement(
+    "div",
+    "category-heading",
+    categoryId,
+    heading
+  );
   category.onclick = showPopup;
   category.style.cursor = "pointer";
-  category.innerHTML = heading;
-  category.id = categoryId;
-  return category;
-};
-const createCategoryBody = () => {
-  const category = document.createElement("div");
-  category.className = "category-body-bookmarks";
   return category;
 };
 
@@ -121,17 +112,18 @@ const setupUncategorizedList = bookmark => {
 };
 
 const createCategorizedBookmarks = bookmarkList => {
-  const newCategory = createNewCategory();
-  const newCategoryHeading = createCategoryHeader(
-    bookmarkList.title,
-    bookmarkList.id
-  );
-  const newCategoryBody = createCategoryBody();
+  const newCategory = createElement("div", "category-new");
+  const newCategoryBody = createElement("div", "category-body-bookmarks");
 
   bookmarkList.children.map(bookmark => {
     const newBookmark = formatBookmark(bookmark);
     newCategoryBody.appendChild(newBookmark);
   });
+  
+  const newCategoryHeading = createCategoryHeader(
+    bookmarkList.title,
+    bookmarkList.id
+  );
 
   newCategory.appendChild(newCategoryBody);
   newCategory.appendChild(newCategoryHeading);
@@ -151,28 +143,6 @@ const loadBookmarks = () => {
         createCategorizedBookmarks(bookmark);
       }
     });
-  });
-};
-
-const displayCategory = categoryId => {
-  chrome.bookmarks.getChildren(categoryId.toString(), a => {
-    createPopup();
-  });
-};
-
-const createPopup = bookmarksList => {
-  const parent = document.getElementById("popup-list-div");
-  bookmarksList.map(entity => {
-    const deleteButton = document.createElement("button");
-    deleteButton.className = "";
-    deleteButton.id = entity.id;
-    deleteButton.innerHTML = "Delete";
-
-    const bookmark = document.createElement("div");
-    bookmark.className = "";
-    bookmark.innerHTML = entity.title;
-
-    parent.appendChild(bookmark);
   });
 };
 
