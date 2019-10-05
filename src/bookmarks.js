@@ -1,9 +1,18 @@
 const isBookmarkUncategorized = bookmark => !bookmark.children;
 
 const removeCategory = e => {
-  const categoryId = e.target.id;
-  chrome.bookmarks.remove(categoryId.toString(), output => console.log(output));
-  location.reload();
+  const indentity = e.target.id;
+  const categoryId = indentity.split("|")[0];
+  const categoryName = indentity.split("|")[1];
+  const userConfirmation = prompt(
+    "Please type in the name of the category to confirm."
+  );
+  if (userConfirmation == categoryName) {
+    chrome.bookmarks.remove(categoryId.toString(), output =>
+      console.log(output)
+    );
+    location.reload();
+  }
 };
 
 const closePopup = () => {
@@ -41,7 +50,7 @@ const buildPopupHeader = (heading, categoryId) => {
   const popupCategoryRemoveBtn = createElement(
     "button",
     "popup-remove-category-btn",
-    categoryId,
+    `${categoryId}|${heading}`,
     "Delete"
   );
   popupCategoryRemoveBtn.onclick = removeCategory;
