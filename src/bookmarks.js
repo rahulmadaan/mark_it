@@ -1,17 +1,21 @@
 const isBookmarkUncategorized = bookmark => !bookmark.children;
 
-// const removeCategory = e => {
-//   const id = e.target.id;
-//   const title = id.split("|")[1];
-//   const categoryId = id.split("|")[0];
-//   const input = prompt("Please type in the name of the category to confirm.");
-//   if (input == title) {
-//     chrome.bookmarks.remove(categoryId.toString(), output =>
-//       console.log(output)
-//     );
-//     location.reload();
-//   }
-// };
+const removeCategory = e => {
+  const id = e.target.id;
+  const title = id.split("|")[1];
+  const categoryId = id.split("|")[0];
+  const input = prompt("Please type in the name of the category to confirm.");
+  if (input == title) {
+    chrome.bookmarks.remove(categoryId.toString(), output =>
+      console.log(output)
+    );
+    location.reload();
+  }
+};
+
+const closePopup = () => {
+  document.getElementById("category-popup").style.width = "0%";
+};
 
 const getAchorTag = bookmark => {
   const anchorTag = document.createElement("a");
@@ -48,11 +52,29 @@ const showPopup = e => {
   const categoryId = e.target.id;
   const popup = document.getElementById("category-popup");
   const heading = e.target.innerHTML;
-  // const popupCloseBtn = createElement("button", "popup-close-btn", "", "close");
-  const popupHeader = createElement("div", "popup-header", "", heading);
+
+  const popupCategoryRemoveBtn = createElement(
+    "button",
+    "popup-remove-category-btn",
+    "",
+    "Delete"
+  );
+  popupCategoryRemoveBtn.onclick = removeCategory;
+  const popupCloseBtn = createElement(
+    "button",
+    "popup-close-btn",
+    "",
+    "close X"
+  );
+  popupCloseBtn.onclick = closePopup;
+  const popupHeading = createElement("div", "popup-heading", "", heading);
+  const popupHeader = createElement("div", "popup-header", "", "");
+
+  popupHeader.appendChild(popupCategoryRemoveBtn);
+  popupHeader.appendChild(popupHeading);
+  popupHeader.appendChild(popupCloseBtn);
 
   popup.appendChild(popupHeader);
-  // popup.appendChild(popupCloseBtn);
   popup.style.width = "50%"; // show popup
 
   const popupBody = document.createElement("div");
