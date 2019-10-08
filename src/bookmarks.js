@@ -1,35 +1,59 @@
 const isBookmarkUncategorized = bookmark => !bookmark.children;
 
-const removeCategory = e => {
-  const indentity = e.target.id;
-  const categoryId = indentity.split("|")[0];
-  const categoryName = indentity.split("|")[1];
-  const userConfirmation = prompt(
-    "Please type in the name of the category to confirm."
+const extractSource = e => {
+  const targetId = e.target.id.split("|");
+  const prefix = targetId[0];
+  const categoryId = targetId[1];
+  const bookmarkId = targetId[2];
+  const heading = targetId[3];
+  return { prefix, categoryId, bookmarkId, heading };
+};
+
+const removeCategory = categoryId => {
+  chrome.bookmarks.removeTree(categoryId.toString(), output =>
+    console.log(output)
   );
-  if (userConfirmation == categoryName) {
-    chrome.bookmarks.remove(categoryId.toString(), output =>
-      console.log(output)
-    );
+};
+
+const removeAllUncategorizedBookmarks = () => {
+  chrome.bookmarks.getTree(output => {
+    const bookmarks = output[0].children[0].children;
+
+    bookmarks.map(bookmark => {
+      if (isBookmarkUncategorized(bookmark)) {
+        chrome.bookmarks.remove(bookmark.id.toString(), output =>
+          console.log(output)
+        );
+      }
+    });
+  });
+};
+
+const removeBookmarksGroup = e => {
+  const { prefix, categoryId, heading } = extractSource(e);
+  const userConfirmation = prompt(
+    "This will delete all the bookmarks of selected Category. \n Please type in the name of the to confirm. "
+  );
+  if (userConfirmation == heading) {
+    if (prefix == "C") {
+      removeCategory(categoryId);
+      location.reload();
+      return;
+    }
+    removeAllUncategorizedBookmarks();
     location.reload();
   }
 };
 
-const rebuildPopup = (categoryId, title) => {
+const rebuildPopup = e => {
   closePopup();
-  showPopup("", categoryId, title);
+  showPopup(e);
 };
 
 const deleteBookmark = e => {
-  const bookmarkId = e.target.id;
-  chrome.bookmarks.get(bookmarkId.toString(), output => {
-    const categoryId = output[0].parentId;
-    chrome.bookmarks.get(categoryId.toString(), res => {
-      const categoryTitle = res[0].title;
-      chrome.bookmarks.remove(bookmarkId.toString(), res => {});
-      rebuildPopup(categoryId, categoryTitle);
-    });
-  });
+  const { bookmarkId } = extractSource(e);
+  chrome.bookmarks.remove(bookmarkId.toString(), res => {});
+  rebuildPopup(e);
 };
 
 const closePopup = () => {
@@ -65,14 +89,17 @@ const formatBookmark = bookmark => {
 
 const buildPopupHeader = (heading, categoryId) => {
   const popupHeader = createElement("div", "popup-header");
-
+  let prefix = "UC";
+  if (categoryId) {
+    prefix = "C";
+  }
   const popupCategoryRemoveBtn = createElement(
     "button",
     "popup-remove-category-btn",
-    `${categoryId}|${heading}`,
+    `${prefix}|${categoryId}||${heading}`,
     "Delete"
   );
-  popupCategoryRemoveBtn.onclick = removeCategory;
+  popupCategoryRemoveBtn.onclick = removeBookmarksGroup;
 
   const popupHeading = createElement("div", "popup-heading", "", heading);
   const popupCloseBtn = createElement(
@@ -90,20 +117,24 @@ const buildPopupHeader = (heading, categoryId) => {
   return popupHeader;
 };
 
-const createBookmarkEntity = (title, id) => {
+const createBookmarkEntity = (bookmarkTitle, bookmarkId, categoryId, title) => {
+  let prefix = "UC";
+  if (categoryId) {
+    prefix = "C";
+  }
   const bookmarkEntity = createElement("div", "popup-bookmark");
 
   const bookmarkBody = createElement(
     "div",
     "popup-bookmark-description",
     "",
-    title
+    bookmarkTitle
   );
 
   const deleteButton = createElement(
     "div",
     "popup-bookmark-delete-btn",
-    id,
+    `${prefix}|${categoryId}|${bookmarkId}|${title}`,
     "X"
   );
   deleteButton.onclick = deleteBookmark;
@@ -112,32 +143,59 @@ const createBookmarkEntity = (title, id) => {
   return bookmarkEntity;
 };
 
-const showPopup = (e, categoryId = "", heading = "") => {
-  const popup = document.getElementById("category-popup");
-  popup.style.width = "50%"; // show popup
-  if (!categoryId) {
-    categoryId = e.target.id;
-  }
-  if (!heading) {
-    heading = e.target.innerHTML;
-  }
-  const popupHeader = buildPopupHeader(heading, categoryId);
-
-  popup.appendChild(popupHeader);
-
+const createCatPopup = (popup, categoryId, heading) => {
   chrome.bookmarks.getChildren(categoryId.toString(), bookmarks => {
     bookmarks.map(bookmark => {
-      const bookmarkEntity = createBookmarkEntity(bookmark.title, bookmark.id);
+      const bookmarkEntity = createBookmarkEntity(
+        bookmark.title,
+        bookmark.id,
+        categoryId,
+        heading
+      );
       popup.appendChild(bookmarkEntity);
     });
   });
+};
+
+const buildUnCatPopupBody = (popup, heading) => {
+  chrome.bookmarks.getTree(output => {
+    const bookmarks = output[0].children[0].children;
+
+    bookmarks.map(bookmark => {
+      if (isBookmarkUncategorized(bookmark)) {
+        const bookmarkEntity = createBookmarkEntity(
+          bookmark.title,
+          bookmark.id,
+          "",
+          heading
+        );
+        popup.appendChild(bookmarkEntity);
+      }
+    });
+  });
+};
+
+const showPopup = e => {
+  const popup = document.getElementById("category-popup");
+  popup.style.width = "50%"; // show popup
+
+  const { prefix, categoryId, heading } = extractSource(e);
+
+  const popupHeader = buildPopupHeader(heading, categoryId);
+  popup.appendChild(popupHeader);
+
+  if (prefix == "C") {
+    createCatPopup(popup, categoryId, heading);
+    return;
+  }
+  buildUnCatPopupBody(popup, heading);
 };
 
 const createCategoryHeader = (heading, categoryId) => {
   const category = createElement(
     "div",
     "category-heading",
-    categoryId,
+    `C|${categoryId}||${heading}`,
     heading
   );
   category.onclick = showPopup;
@@ -146,7 +204,9 @@ const createCategoryHeader = (heading, categoryId) => {
 };
 
 const setupUncategorizedList = bookmark => {
-  const bookmarksList = document.getElementById("uncategorized-bookmarks-body");
+  const bookmarksList = document.getElementById(
+    "uncategorized-bookmarks-body-bookmarks"
+  );
   const anchorTag = getAchorTag(bookmark);
 
   const newBookmark = document.createElement("div");
@@ -177,6 +237,20 @@ const createCategorizedBookmarks = bookmarkList => {
     .appendChild(newCategory);
 };
 
+const createUnCategorizedHeader = () => {
+  const unCategorizedBody = document.getElementById(
+    "uncategorized-bookmarks-body"
+  );
+  const header = createElement(
+    "div",
+    "uncategorized-bookmarks-body-header",
+    `"UC"|||UnCategorized`,
+    "UnCategorized"
+  );
+  header.onclick = showPopup;
+  unCategorizedBody.appendChild(header);
+};
+
 const loadBookmarks = () => {
   chrome.bookmarks.getTree(output => {
     const bookmarks = output[0].children[0].children;
@@ -188,6 +262,7 @@ const loadBookmarks = () => {
         createCategorizedBookmarks(bookmark);
       }
     });
+    createUnCategorizedHeader();
   });
 };
 
