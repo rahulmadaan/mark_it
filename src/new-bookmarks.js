@@ -30,7 +30,6 @@ const buildPane = element => {
 const loadBookmarks = () => {
   chrome.bookmarks.getTree(output => {
     const bManager = output[0].children;
-
     bManager.map(bookmarkGroup => {
       buildPaneElement(bookmarkGroup);
       buildPane(bookmarkGroup);

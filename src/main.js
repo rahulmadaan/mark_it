@@ -24,10 +24,17 @@ const set = () => {
     clearInputField();
   }
 };
-const attachEventListenerOnButton = () => {
+const bindEventListeners = () => {
   document.getElementById("name-input-button").addEventListener("click", set);
-};
 
+  document.body.addEventListener("click", e => {
+    if (e.target.id !== "setting-div") {
+      document.getElementById("setting-popup").style.width = "0%";
+    } else {
+      document.getElementById("setting-popup").style.width = "50%";
+    }
+  });
+};
 const displayUser = () => {
   const userName = localStorage.getItem("userName");
   if (userName != null) {
@@ -37,7 +44,7 @@ const displayUser = () => {
 
 const initialize = () => {
   displayUser();
-  attachEventListenerOnButton();
+  bindEventListeners();
 };
 
 window.onload = initialize;
