@@ -21,6 +21,15 @@ const updateImages = newImage => {
     );
   });
 };
+
+const createElement = (elementType, className, id = "", body = "") => {
+  const element = document.createElement(elementType);
+  element.className = className;
+  element.id = id;
+  element.innerHTML = body;
+  return element;
+};
+
 const clearInputField = () => {
   document.getElementById("name-input").value = "";
 };
@@ -34,14 +43,30 @@ const set = () => {
 };
 const bindEventListeners = () => {
   document.getElementById("name-input-button").addEventListener("click", set);
-
-  document.getElementById("setting-div").addEventListener("click", e => {
-    document.getElementById("setting-popup").style.width = "50%";
-  });
-
+  document.getElementById("setting-div").addEventListener("click", showPopup);
   document
     .getElementById("inputFileToLoad")
     .addEventListener("change", uploadImage);
+};
+
+const createImageEntity = src => {
+  const imageEntity = createElement("div", "", "", src);
+  const imageBody = createElement("div", "", "", "Set");
+  imageEntity.appendChild(imageBody);
+  return imageEntity;
+};
+
+const showPopup = () => {
+  document.getElementById("setting-popup").style.width = "50%";
+
+  const popupBody = document.getElementById("popup-body-div");
+  chrome.storage.local.get("background-images", output => {
+    const images = output["background-images"];
+    images.map(image => {
+      const imageEntity = createImageEntity("IMAGE");
+      popupBody.appendChild(imageEntity);
+    });
+  });
 };
 const displayUser = () => {
   const userName = localStorage.getItem("userName");
