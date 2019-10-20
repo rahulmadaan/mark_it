@@ -33,6 +33,7 @@ const createElement = (elementType, className, id = "", body = "") => {
 const clearInputField = () => {
   document.getElementById("name-input").value = "";
 };
+
 const set = () => {
   const userName = document.getElementById("name-input").value;
   if (userName != "") {
@@ -50,10 +51,13 @@ const bindEventListeners = () => {
 };
 
 const createImageEntity = src => {
-  const imageEntity = createElement("div", "", "", src);
+  const image = createElement("div", "image-entity-popup");
+  const imageEntity = createElement("img", "image-popup-thumbnail");
+  imageEntity.src = src;
   const imageBody = createElement("div", "", "", "Set");
-  imageEntity.appendChild(imageBody);
-  return imageEntity;
+  image.appendChild(imageEntity);
+  image.appendChild(imageBody);
+  return image;
 };
 
 const showPopup = () => {
@@ -63,7 +67,7 @@ const showPopup = () => {
   chrome.storage.local.get("background-images", output => {
     const images = output["background-images"];
     images.map(image => {
-      const imageEntity = createImageEntity("IMAGE");
+      const imageEntity = createImageEntity(image.src);
       popupBody.appendChild(imageEntity);
     });
   });
