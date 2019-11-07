@@ -17,7 +17,7 @@ const updateImages = newImage => {
     images["background-images"].push(newImage);
     chrome.storage.local.set(
       { "background-images": images["background-images"] },
-      out => {}
+      out => { }
     );
   });
 };
@@ -44,6 +44,12 @@ const set = () => {
 };
 const bindEventListeners = () => {
   document.getElementById("name-input-button").addEventListener("click", set);
+  document.getElementById("name-input").addEventListener("keypress", function (event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      document.getElementById("name-input-button").click();
+    }
+  });
   document.getElementById("setting-div").addEventListener("click", showPopup);
   document
     .getElementById("inputFileToLoad")
@@ -96,7 +102,7 @@ const addImage = src => {
   };
   updateImages(newImage);
 };
-const uploadImage = function() {
+const uploadImage = function () {
   var filesSelected = document.getElementById("inputFileToLoad").files;
   var fileToLoad = filesSelected[0];
   var fileReader = new FileReader();
