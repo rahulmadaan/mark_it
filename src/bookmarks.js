@@ -97,18 +97,20 @@ const buildPopupHeader = (heading, categoryId) => {
     "button",
     "popup-remove-category-btn",
     `${prefix}|${categoryId}||${heading}`,
-    "Delete"
+    "	&#128465;"
   );
   popupCategoryRemoveBtn.onclick = removeBookmarksGroup;
+  popupCategoryRemoveBtn.title = "Delete";
 
   const popupHeading = createElement("div", "popup-heading", "", heading);
   const popupCloseBtn = createElement(
     "button",
     "popup-close-btn",
     "",
-    "close X"
+    "&#x274C"
   );
   popupCloseBtn.onclick = closePopup;
+  popupCloseBtn.title = "Close";
 
   popupHeader.appendChild(popupCategoryRemoveBtn);
   popupHeader.appendChild(popupHeading);
@@ -135,7 +137,7 @@ const createBookmarkEntity = (bookmarkTitle, bookmarkId, categoryId, title) => {
     "div",
     "popup-bookmark-delete-btn",
     `${prefix}|${categoryId}|${bookmarkId}|${title}`,
-    "X"
+    "&#9986"
   );
   deleteButton.onclick = deleteBookmark;
   bookmarkEntity.appendChild(bookmarkBody);

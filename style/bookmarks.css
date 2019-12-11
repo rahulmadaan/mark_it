@@ -136,15 +136,15 @@ a {
 }
 /* ------------------------popup---------------------------------- */
 .bookmark-category-popup {
-  background-color: #ffada3;
+  background-color: white;
   z-index: 1;
   position: fixed;
-  height: 60%;
+  height: 50%;
   width: 0%; /* increase this to 50% to show popup */
-  opacity: 0.9;
+  opacity: 1;
   left: 25%;
   top: 20%;
-  border-radius: 20px;
+  border-radius: 10px;
   overflow: scroll;
 }
 .popup-header {
