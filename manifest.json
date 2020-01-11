@@ -2,7 +2,7 @@
   "version": "1.0",
 
   "name": "Mark It",
-  "description": "This Chrome extension greets the user each time they open a new tab",
+  "description": "A Chrome extension for managing bookmarks",
 
   "manifest_version": 2,
 

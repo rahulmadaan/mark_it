@@ -5,7 +5,7 @@ body {
   margin: 0;
   overflow: hidden;
   font-size: 14px;
-  background-color: dimgray;
+  background-color: black;
 }
 a {
   text-decoration: none;
@@ -227,4 +227,18 @@ a {
 } */
 .wip {
   float: right;
+}
+
+.header-bookmarks {
+  color: rgb(184, 182, 182);
+}
+
+.home-icon {
+  text-decoration: none;
+  color: rgb(154, 147, 147);
+  font-size: 35px;
+}
+
+.home-icon:hover {
+  color: rgb(207, 202, 202);
 }
