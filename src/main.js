@@ -12,16 +12,6 @@ const setUserName = userName => {
     "greeting"
   ).innerText = `${greetingPrefix} \t ${userName}`;
 };
-const updateImages = newImage => {
-  chrome.storage.local.get("background-images", images => {
-    images["background-images"].push(newImage);
-    chrome.storage.local.set(
-      { "background-images": images["background-images"] },
-      out => { }
-    );
-  });
-};
-
 const createElement = (elementType, className, id = "", body = "") => {
   const element = document.createElement(elementType);
   element.className = className;
@@ -42,82 +32,52 @@ const set = () => {
     clearInputField();
   }
 };
-const bindEventListeners = () => {
-  document.getElementById("name-input-button").addEventListener("click", set);
-  document.getElementById("name-input").addEventListener("keypress", function (event) {
-    if (event.keyCode === 13) {
-      event.preventDefault();
-      document.getElementById("name-input-button").click();
-    }
-  });
-  document.getElementById("setting-div").addEventListener("click", showPopup);
-  document
-    .getElementById("inputFileToLoad")
-    .addEventListener("change", uploadImage);
-};
 
-const createImageEntity = src => {
-  const image = createElement("div", "image-entity-popup");
-  const imageEntity = createElement("img", "image-popup-thumbnail");
-  imageEntity.src = src;
-  const imageBody = createElement("div", "", "", "Set");
-  image.appendChild(imageEntity);
-  image.appendChild(imageBody);
-  return image;
-};
-
-const showPopup = () => {
-  document.getElementById("setting-popup").style.width = "50%";
-
-  const popupBody = document.getElementById("popup-body-div");
-  chrome.storage.local.get("background-images", output => {
-    const images = output["background-images"];
-    images.map(image => {
-      const imageEntity = createImageEntity(image.src);
-      popupBody.appendChild(imageEntity);
-    });
-  });
-};
 const displayUser = () => {
   const userName = localStorage.getItem("userName");
   if (userName != null) {
     setUserName(userName);
   }
 };
-
-const setupStorage = () => {
-  chrome.storage.local.get("background-images", images => {
-    if (Object.keys(images).length < 1) {
-      chrome.storage.local.set({ "background-images": [] }, a =>
-        console.log(a)
-      );
-    }
-  });
+const buildImagePopup = () => {
+  showPopup();
 };
+const buildNamePopup = () => {
+  showPopup();
+  const popupHeader = document.getElementById("popup-header");
+  popupHeader.innerHTML = "Change Greeting Name";
+  const popupBody = document.getElementById("popup-body");
 
-const addImage = src => {
-  const newImage = {
-    src,
-    isActive: false
-  };
-  updateImages(newImage);
+  const userInput = createElement("div", "", "user-input-div");
+  const nameInputBox = createElement("input", "", "name-input");
+  nameInputBox.placeholder = "Type your name here.....";
+
+  const nameInputButton = createElement(
+    "button",
+    "",
+    "name-input-button",
+    "Update"
+  );
+  nameInputButton.onclick = set;
+
+  userInput.appendChild(nameInputBox);
+  userInput.appendChild(nameInputButton);
+
+  popupBody.appendChild(userInput);
 };
-const uploadImage = function () {
-  var filesSelected = document.getElementById("inputFileToLoad").files;
-  var fileToLoad = filesSelected[0];
-  var fileReader = new FileReader();
-  fileReader.readAsDataURL(fileToLoad);
-
-  fileReader.onload = fileLoadedEvent => {
-    var srcData = fileLoadedEvent.target.result;
-    addImage(srcData);
-  };
+const showPopup = () => {
+  document.getElementById("popup-main").style.width = "30%";
 };
 
 const initialize = () => {
+  document
+    .getElementById("image-popup")
+    .addEventListener("click", buildImagePopup);
+  document
+    .getElementById("greeting-name-box")
+    .addEventListener("click", buildNamePopup);
+
   displayUser();
-  bindEventListeners();
-  setupStorage();
 };
 
 window.onload = initialize;
