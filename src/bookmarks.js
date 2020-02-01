@@ -146,6 +146,7 @@ const createBookmarkEntity = (bookmarkTitle, bookmarkId, categoryId, title) => {
 };
 
 const createCatPopup = (popup, categoryId, heading) => {
+  const popupList = document.getElementById("popup-list-div");
   chrome.bookmarks.getChildren(categoryId.toString(), bookmarks => {
     bookmarks.map(bookmark => {
       const bookmarkEntity = createBookmarkEntity(
@@ -154,9 +155,10 @@ const createCatPopup = (popup, categoryId, heading) => {
         categoryId,
         heading
       );
-      popup.appendChild(bookmarkEntity);
+      popupList.appendChild(bookmarkEntity);
     });
   });
+  popup.appendChild(popupList);
 };
 
 const buildUnCatPopupBody = (popup, heading) => {
