@@ -42,7 +42,17 @@ const displayUser = () => {
 const buildImagePopup = () => {
   showPopup();
 };
+const alreadyHasWidth = width => {
+  return +width.substr(0, width.length - 1) > 0 || 0;
+};
+
 const buildNamePopup = () => {
+  const popup = document.getElementById("popup-main").style.width;
+
+  if (alreadyHasWidth(popup)) {
+    return;
+  }
+
   showPopup();
   const popupHeader = document.getElementById("popup-header");
   popupHeader.innerHTML = "Change Greeting Name";
@@ -62,8 +72,6 @@ const buildNamePopup = () => {
 
   popupBody.appendChild(nameInputBox);
   popupBody.appendChild(nameInputButton);
-
-  // popupBody.appendChild(userInput);
 };
 const showPopup = () => {
   document.getElementById("popup-main").style.width = "30%";
@@ -76,7 +84,7 @@ const initialize = () => {
   document
     .getElementById("greeting-name-box")
     .addEventListener("click", buildNamePopup);
-    
+
   window.onkeydown = event => {
     if (event.keyCode == 27) {
       document.getElementById("name-input").remove();
