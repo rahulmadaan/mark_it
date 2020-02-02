@@ -48,9 +48,9 @@ const buildNamePopup = () => {
   popupHeader.innerHTML = "Change Greeting Name";
   const popupBody = document.getElementById("popup-body");
 
-  const userInput = createElement("div", "", "user-input-div");
   const nameInputBox = createElement("input", "", "name-input");
   nameInputBox.placeholder = "Type your name here.....";
+  nameInputBox.autocomplete = "off";
 
   const nameInputButton = createElement(
     "button",
@@ -60,10 +60,10 @@ const buildNamePopup = () => {
   );
   nameInputButton.onclick = set;
 
-  userInput.appendChild(nameInputBox);
-  userInput.appendChild(nameInputButton);
+  popupBody.appendChild(nameInputBox);
+  popupBody.appendChild(nameInputButton);
 
-  popupBody.appendChild(userInput);
+  // popupBody.appendChild(userInput);
 };
 const showPopup = () => {
   document.getElementById("popup-main").style.width = "30%";
@@ -76,7 +76,16 @@ const initialize = () => {
   document
     .getElementById("greeting-name-box")
     .addEventListener("click", buildNamePopup);
+    
+  window.onkeydown = event => {
+    if (event.keyCode == 27) {
+      document.getElementById("name-input").remove();
+      document.getElementById("name-input-button").remove();
+      document.getElementById("popup-main").style.width = "0%";
 
+      console.log("escape pressed");
+    }
+  };
   displayUser();
 };
 
