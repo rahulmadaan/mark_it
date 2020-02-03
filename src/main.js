@@ -87,8 +87,11 @@ const initialize = () => {
 
   window.onkeydown = event => {
     if (event.keyCode == 27) {
-      document.getElementById("name-input").remove();
-      document.getElementById("name-input-button").remove();
+      if (document.getElementById("name-input-button")) {
+        console.log("exists");
+        document.getElementById("name-input-button").remove();
+        document.getElementById("name-input").remove();
+      }
       document.getElementById("popup-main").style.width = "0%";
 
       console.log("escape pressed");
