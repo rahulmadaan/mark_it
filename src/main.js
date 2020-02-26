@@ -41,6 +41,11 @@ const displayUser = () => {
 };
 const buildImagePopup = () => {
   showPopup();
+  // const imageInputBox = createElement("input", "inputFileToLoad");
+  // imageInputBox.type = "file";
+
+  // const box = createElement("div", "", "", `Add Image: ${box}`);
+  // console.log("box is", box);
 };
 const alreadyHasWidth = width => {
   return +width.substr(0, width.length - 1) > 0 || 0;
