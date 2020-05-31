@@ -1,16 +1,22 @@
-- [x] Add README.md
-- [] Add functionality to change background image
-- [] Add functionality to 
-  - [x] delete bookmarks
-  - [x] delete category
-  - [] create bookmark
-  - [] create category
-  - [] move bookmarks to other categories
-- [] Move bookmarks manager to homepage itself
-- [] Add todo manager to
-  - [] Add todo items
-  - [] Delete todo items
-  - [] edit todo items
-  - [] schedule a notification for those items
-- [] Build a analytics tool for tracking websites user visits
-- [X] Find alternative of chrome local storage
+[x] Add README.md
+[] Add functionality to change background image
+
+[x] delete bookmarks
+[x] delete category
+[] create bookmark
+[] create category
+[] move bookmarks to other categories
+
+[]close button on greeting name popup
+[]fix header for bookmark category
+[]fix bookmark category popup. Not showing bookmarks after closing one popup
+[]ability for user to change background image
+[]icon repository for bookmarks(show initial of url, if not icon not available)
+
+[] Add todo items
+[] Delete todo items
+[] edit todo items
+[] schedule a notification for those items
+
+[] Build a analytics tool for tracking websites user visits
+[x] Find alternative of chrome local storage
