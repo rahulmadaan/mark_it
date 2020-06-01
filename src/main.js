@@ -12,6 +12,7 @@ const setUserName = userName => {
     "greeting"
   ).innerText = `${greetingPrefix} \t ${userName}`;
 };
+
 const createElement = (elementType, className, id = "", body = "") => {
   const element = document.createElement(elementType);
   element.className = className;
@@ -39,7 +40,10 @@ const displayUser = () => {
     setUserName(userName);
   }
 };
+
 const buildImagePopup = () => {
+  const popupHeaderText = document.getElementById("popup-header-text");
+  popupHeaderText.innerHTML = "Change Background Image";
   showPopup();
   // const imageInputBox = createElement("input", "inputFileToLoad");
   // imageInputBox.type = "file";
@@ -47,37 +51,39 @@ const buildImagePopup = () => {
   // const box = createElement("div", "", "", `Add Image: ${box}`);
   // console.log("box is", box);
 };
-const alreadyHasWidth = width => {
-  return +width.substr(0, width.length - 1) > 0 || 0;
-};
+
+// const alreadyHasWidth = width => {
+//   return +width.substr(0, width.length - 1) > 0 || 0;
+// };
 
 const buildNamePopup = () => {
-  const popup = document.getElementById("popup-main").style.width;
+  // const popup = document.getElementById("popup-main").style.width;
 
-  if (alreadyHasWidth(popup)) {
-    return;
-  }
+  // if (alreadyHasWidth(popup)) {
+  //   return;
+  // }
 
+  const popupHeaderText = document.getElementById("popup-header-text");
+  popupHeaderText.innerHTML = "Change  Greeting  Name";
   showPopup();
-  const popupHeader = document.getElementById("popup-header");
-  popupHeader.innerHTML = "Change Greeting Name";
   const popupBody = document.getElementById("popup-body");
 
-  const nameInputBox = createElement("input", "", "name-input");
-  nameInputBox.placeholder = "Type your name here.....";
-  nameInputBox.autocomplete = "off";
+  nameInputBox = createElement("input", "", "name-input");
+  // nameInputBox.placeholder = "Type your name here.....";
+  // nameInputBox.autocomplete = "off";
 
-  const nameInputButton = createElement(
-    "button",
-    "",
-    "name-input-button",
-    "Update"
-  );
-  nameInputButton.onclick = set;
+  // const nameInputButton = createElement(
+  //   "button",
+  //   "",
+  //   "name-input-button",
+  //   "Update"
+  // );
+  // nameInputButton.onclick = set;
 
-  popupBody.appendChild(nameInputBox);
-  popupBody.appendChild(nameInputButton);
+  // popupBody.appendChild(nameInputBox);
+  // popupBody.appendChild(nameInputButton);
 };
+
 const showPopup = () => {
   document.getElementById("popup-main").style.width = "30%";
 };
