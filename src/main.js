@@ -1,18 +1,3 @@
-const setUserName = userName => {
-  const today = new Date();
-  const currentHours = today.getHours();
-  let greetingPrefix = "Good Morning";
-  if (currentHours > 11 && currentHours < 16) {
-    greetingPrefix = "Good Afternoon";
-  }
-  if (currentHours > 15 && currentHours <= 23) {
-    greetingPrefix = "Good Evening";
-  }
-  document.getElementById(
-    "greeting"
-  ).innerText = `${greetingPrefix} \t ${userName}`;
-};
-
 const createElement = (elementType, className, id = "", body = "") => {
   const element = document.createElement(elementType);
   element.className = className;
@@ -21,23 +6,25 @@ const createElement = (elementType, className, id = "", body = "") => {
   return element;
 };
 
+const closePopup = () => {
+  document.getElementById("popup-body").innerHTML = null;
+  document.getElementById("popup-main").style.display = "none";
+};
+const showPopup = () => {
+  closePopup();
+  document.getElementById("popup-main").style.display = "block";
+};
+
 const clearInputField = () => {
   document.getElementById("name-input").value = "";
 };
 
-const set = () => {
+const setUserName = () => {
   const userName = document.getElementById("name-input").value;
   if (userName != "") {
     localStorage.setItem("userName", userName);
-    setUserName(userName);
+    greetUser();
     clearInputField();
-  }
-};
-
-const displayUser = () => {
-  const userName = localStorage.getItem("userName");
-  if (userName != null) {
-    setUserName(userName);
   }
 };
 
@@ -69,23 +56,50 @@ const buildNamePopup = () => {
   const popupBody = document.getElementById("popup-body");
 
   nameInputBox = createElement("input", "", "name-input");
-  // nameInputBox.placeholder = "Type your name here.....";
-  // nameInputBox.autocomplete = "off";
+  nameInputBox.placeholder = "Type your name here.....";
+  nameInputBox.autocomplete = "off";
 
-  // const nameInputButton = createElement(
-  //   "button",
-  //   "",
-  //   "name-input-button",
-  //   "Update"
-  // );
-  // nameInputButton.onclick = set;
-
-  // popupBody.appendChild(nameInputBox);
-  // popupBody.appendChild(nameInputButton);
+  const nameInputButton = createElement(
+    "button",
+    "",
+    "name-input-button",
+    "Update"
+  );
+  nameInputButton.onclick = setUserName;
+  popupBody.appendChild(nameInputBox);
+  popupBody.appendChild(nameInputButton);
 };
 
-const showPopup = () => {
-  document.getElementById("popup-main").style.width = "30%";
+const getUserName = () => {
+  let userName = localStorage.getItem("userName");
+  if (userName == null) {
+    userName = "";
+  }
+  return userName;
+};
+
+const getGreetTime = () => {
+  const today = new Date();
+  const currentHours = today.getHours();
+  let greetTime = "Morning";
+  if (currentHours > 11 && currentHours <= 16) {
+    greetTime = "Afternoon";
+  }
+  if (currentHours > 16 && currentHours <= 20) {
+    greetTime = "Evening";
+  }
+  if (currentHours > 20 || currentHours <= 5) {
+    greetTime = "Night";
+  }
+  return ("Good " + greetTime);
+};
+
+const greetUser = () => {
+  const greetTime = getGreetTime();
+  const userName = getUserName();
+  document.getElementById(
+    "greeting"
+  ).innerText = `${greetTime} \t ${userName}`;
 };
 
 const initialize = () => {
@@ -95,20 +109,15 @@ const initialize = () => {
   document
     .getElementById("greeting-name-box")
     .addEventListener("click", buildNamePopup);
+  document
+    .getElementById("popup-close").addEventListener("click", closePopup);
 
   window.onkeydown = event => {
     if (event.keyCode == 27) {
-      if (document.getElementById("name-input-button")) {
-        console.log("exists");
-        document.getElementById("name-input-button").remove();
-        document.getElementById("name-input").remove();
-      }
-      document.getElementById("popup-main").style.width = "0%";
-
-      console.log("escape pressed");
+      closePopup();
     }
   };
-  displayUser();
+  greetUser();
 };
 
 window.onload = initialize;
