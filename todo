@@ -7,7 +7,7 @@
 [] create category
 [] move bookmarks to other categories
 
-[]close button on greeting name popup
+[x]close button on greeting name popup
 []fix header for bookmark category
 []fix bookmark category popup. Not showing bookmarks after closing one popup
 []ability for user to change background image
