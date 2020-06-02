@@ -6,7 +6,12 @@ const extractSource = e => {
   const categoryId = targetId[1];
   const bookmarkId = targetId[2];
   const heading = targetId[3];
-  return { prefix, categoryId, bookmarkId, heading };
+  return {
+    prefix,
+    categoryId,
+    bookmarkId,
+    heading
+  };
 };
 
 const removeCategory = categoryId => {
@@ -30,7 +35,11 @@ const removeAllUncategorizedBookmarks = () => {
 };
 
 const removeBookmarksGroup = e => {
-  const { prefix, categoryId, heading } = extractSource(e);
+  const {
+    prefix,
+    categoryId,
+    heading
+  } = extractSource(e);
   const userConfirmation = prompt(
     "This will delete all the bookmarks of selected Category. \n Please type in the name of the to confirm. "
   );
@@ -51,7 +60,9 @@ const rebuildPopup = e => {
 };
 
 const deleteBookmark = e => {
-  const { bookmarkId } = extractSource(e);
+  const {
+    bookmarkId
+  } = extractSource(e);
   chrome.bookmarks.remove(bookmarkId.toString(), res => {});
   rebuildPopup(e);
 };
@@ -183,7 +194,11 @@ const showPopup = e => {
   const popup = document.getElementById("category-popup");
   popup.style.width = "50%"; // show popup
 
-  const { prefix, categoryId, heading } = extractSource(e);
+  const {
+    prefix,
+    categoryId,
+    heading
+  } = extractSource(e);
 
   const popupHeader = buildPopupHeader(heading, categoryId);
   popup.appendChild(popupHeader);
@@ -209,7 +224,7 @@ const createCategoryHeader = (heading, categoryId) => {
 
 const setupUncategorizedList = bookmark => {
   const bookmarksList = document.getElementById(
-    "uncategorized-bookmarks-body-bookmarks"
+    "uncategorized-bookmarks"
   );
   const anchorTag = getAchorTag(bookmark);
 
@@ -243,7 +258,7 @@ const createCategorizedBookmarks = bookmarkList => {
 
 const createUnCategorizedHeader = () => {
   const unCategorizedBody = document.getElementById(
-    "uncategorized-bookmarks-body"
+    "uncategorized-bookmarks"
   );
   const header = createElement(
     "div",
