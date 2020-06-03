@@ -5,10 +5,13 @@ body {
   height: 100%;
   margin: 0%;
   overflow: hidden;
+}
+
+body {
   /* background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); */
   /* animation: gradient 15s ease infinite; */
   background-image: url("../library/nature-3082832_1920.jpg");
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
