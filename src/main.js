@@ -84,13 +84,8 @@ const exitNameInput = () => {
 //   popupBody.appendChild(nameInputButton);
 // };
 
-const getUserName = () => {
-  let userName = localStorage.getItem("userName");
-  if (userName == null) {
-    userName = "Click Here";
-  }
-  return userName;
-};
+const getUserName = () => localStorage.getItem("userName") || "Click Here";
+const getBackground = () => localStorage.getItem("backGround") || "../library/backgroundImage.jpg";
 
 const getGreetTime = () => {
   const today = new Date();
@@ -105,7 +100,7 @@ const getGreetTime = () => {
   if (currentHours > 20 || currentHours <= 5) {
     greetTime = "Night";
   }
-  return ("Good " + greetTime);
+  return "Good " + greetTime;
 };
 
 const greetUser = () => {
@@ -113,6 +108,12 @@ const greetUser = () => {
   const userName = getUserName();
   document.getElementById("greeting").innerText = greetTime;
   document.getElementById("name").innerText = userName;
+};
+
+
+const setBackground = () => {
+  const imageFile = getBackground();
+  document.getElementById('body').style.backgroundImage = `url(${imageFile})`;
 };
 
 const initialize = () => {
@@ -134,11 +135,13 @@ const initialize = () => {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.addEventListener('load', event => {
-      document.getElementById('body').style.backgroundImage = `url(${ reader.result })`;
+      localStorage.setItem("backGround", reader.result);
+      setBackground();
     });
     reader.readAsDataURL(file);
   });
   greetUser();
+  setBackground();
 };
 
 window.onload = initialize;
