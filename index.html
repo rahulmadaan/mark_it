@@ -7,7 +7,8 @@
   <link rel="stylesheet" type="text/css" media="screen" href="./style/style.css" />
 </head>
 
-<body>
+<body id="body">
+  <!--   
   <div id="popup-main">
     <div id="popup-header">
       <span id="popup-header-text">popup-header</span>
@@ -29,9 +30,27 @@
         </a>
       </div>
     </div>
+  </main> -->
+  <header class="header">
+    <div class="optionContainer">
+      <div class="optionButtons" id="bookmarkButton"><a href="public/bookmarks.html">&#xe800;</a></div>
+      <br>
+      <div class="optionButtons" id="imageButton"><span>&#xe807;</span></div>
+      <input type="file" id="file-selector" accept=".jpg, .jpeg, .png" />
+    </div>
+  </header>
+  <main class="main">
+
   </main>
+
+
   <footer class="footer">
-    <div class="greeting-container" id="greeting"></div>
+    <div class="greeting-container">
+      <span id="greeting"></span>
+      <pre> </pre>
+      <input type="text" id="nameInput" autocomplete="off">
+      <span id="name"></span>
+    </div>
   </footer>
 </body>
 
