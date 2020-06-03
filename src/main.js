@@ -1,79 +1,93 @@
-const createElement = (elementType, className, id = "", body = "") => {
-  const element = document.createElement(elementType);
-  element.className = className;
-  element.id = id;
-  element.innerHTML = body;
-  return element;
+const writeOnConsole = () => {
+  console.log("Something Happens?");
 };
 
-const closePopup = () => {
-  document.getElementById("popup-body").innerHTML = null;
-  document.getElementById("popup-main").style.display = "none";
+const enableNameInput = () => {
+  document.getElementById("name").style.display = "none";
+  document.getElementById("nameInput").style.display = "inline-block";
 };
-const showPopup = () => {
-  closePopup();
-  document.getElementById("popup-main").style.display = "block";
-};
-
-const clearInputField = () => {
-  document.getElementById("name-input").value = "";
+const exitNameInput = () => {
+  document.getElementById("name").style.display = "flex";
+  document.getElementById("nameInput").style.display = "none";
 };
 
-const setUserName = () => {
-  const userName = document.getElementById("name-input").value;
-  if (userName != "") {
-    localStorage.setItem("userName", userName);
-    greetUser();
-    clearInputField();
-  }
-};
 
-const buildImagePopup = () => {
-  const popupHeaderText = document.getElementById("popup-header-text");
-  popupHeaderText.innerHTML = "Change Background Image";
-  showPopup();
-  // const imageInputBox = createElement("input", "inputFileToLoad");
-  // imageInputBox.type = "file";
-
-  // const box = createElement("div", "", "", `Add Image: ${box}`);
-  // console.log("box is", box);
-};
-
-// const alreadyHasWidth = width => {
-//   return +width.substr(0, width.length - 1) > 0 || 0;
+// const createElement = (elementType, className, id = "", body = "") => {
+//   const element = document.createElement(elementType);
+//   element.className = className;
+//   element.id = id;
+//   element.innerHTML = body;
+//   return element;
 // };
 
-const buildNamePopup = () => {
-  // const popup = document.getElementById("popup-main").style.width;
+// const closePopup = () => {
+//   document.getElementById("popup-body").innerHTML = null;
+//   document.getElementById("popup-main").style.display = "none";
+// };
+// const showPopup = () => {
+//   closePopup();
+//   document.getElementById("popup-main").style.display = "block";
+// };
 
-  // if (alreadyHasWidth(popup)) {
-  //   return;
-  // }
+// const clearInputField = () => {
+//   document.getElementById("name-input").value = "";
+// };
 
-  const popupHeaderText = document.getElementById("popup-header-text");
-  popupHeaderText.innerHTML = "Change  Greeting  Name";
-  showPopup();
-  const popupBody = document.getElementById("popup-body");
+// const setUserName = () => {
+//   const userName = document.getElementById("name-input").value;
+//   if (userName != "") {
+//     localStorage.setItem("userName", userName);
+//     greetUser();
+//     clearInputField();
+//   }
+// };
 
-  nameInputBox = createElement("input", "", "name-input");
-  nameInputBox.placeholder = "Type your name here.....";
-  nameInputBox.autocomplete = "off";
+// const buildImagePopup = () => {
+//   const popupHeaderText = document.getElementById("popup-header-text");
+//   popupHeaderText.innerHTML = "Change Background Image";
+//   showPopup();
+//   // const imageInputBox = createElement("input", "inputFileToLoad");
+//   // imageInputBox.type = "file";
 
-  const nameInputButton = createElement(
-    "button",
-    "",
-    "name-input-button",
-    "Update"
-  );
-  nameInputButton.onclick = setUserName;
-  popupBody.appendChild(nameInputBox);
-  popupBody.appendChild(nameInputButton);
-};
+//   // const box = createElement("div", "", "", `Add Image: ${box}`);
+//   // console.log("box is", box);
+// };
+
+// // const alreadyHasWidth = width => {
+// //   return +width.substr(0, width.length - 1) > 0 || 0;
+// // };
+
+// const buildNamePopup = () => {
+//   // const popup = document.getElementById("popup-main").style.width;
+
+//   // if (alreadyHasWidth(popup)) {
+//   //   return;
+//   // }
+
+//   const popupHeaderText = document.getElementById("popup-header-text");
+//   popupHeaderText.innerHTML = "Change  Greeting  Name";
+//   showPopup();
+//   const popupBody = document.getElementById("popup-body");
+
+//   nameInputBox = createElement("input", "", "name-input");
+//   nameInputBox.placeholder = "Type your name here.....";
+//   nameInputBox.autocomplete = "off";
+
+//   const nameInputButton = createElement(
+//     "button",
+//     "",
+//     "name-input-button",
+//     "Update"
+//   );
+//   nameInputButton.onclick = setUserName;
+//   popupBody.appendChild(nameInputBox);
+//   popupBody.appendChild(nameInputButton);
+// };
 
 const getUserName = () => {
   let userName = localStorage.getItem("userName");
   if (userName == null) {
-    userName = "";
+    userName = "Click Here";
   }
   return userName;
 };
@@ -97,26 +111,33 @@ const getGreetTime = () => {
 const greetUser = () => {
   const greetTime = getGreetTime();
   const userName = getUserName();
-  document.getElementById(
-    "greeting"
-  ).innerText = `${greetTime} \t ${userName}`;
+  document.getElementById("greeting").innerText = greetTime;
+  document.getElementById("name").innerText = userName;
 };
 
 const initialize = () => {
-  document
-    .getElementById("image-popup")
-    .addEventListener("click", buildImagePopup);
-  document
-    .getElementById("greeting-name-box")
-    .addEventListener("click", buildNamePopup);
-  document
-    .getElementById("popup-close").addEventListener("click", closePopup);
-
-  window.onkeydown = event => {
+  // document
+  //   .getElementById("image-popup")
+  //   .addEventListener("click", buildImagePopup);
+  // document
+  //   .getElementById("greeting-name-box")
+  //   .addEventListener("click", buildNamePopup);
+  // document
+  //   .getElementById("popup-close").addEventListener("click", closePopup);
+  document.getElementById("name").addEventListener("mouseover", enableNameInput);
+  document.getElementById("nameInput").onkeydown = event => {
     if (event.keyCode == 27) {
-      closePopup();
+      exitNameInput();
     }
-  };
+  }
+  document.getElementById('file-selector').addEventListener('change', event => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.addEventListener('load', event => {
+      document.getElementById('body').style.backgroundImage = `url(${ reader.result })`;
+    });
+    reader.readAsDataURL(file);
+  });
   greetUser();
 };
 
