@@ -98,13 +98,20 @@ body {
 } */
 
 #bookmarkButton a,
-#imageButton span {
+#imageButton label {
   color: white;
   margin: 0% auto;
 }
 
+#bookmarkButton a:hover,
+#imageButton label:hover {
+  color: coral
+}
+
 #file-selector {
-  color: transparent;
+  visibility: hidden;
+  width: 0px;
+  height: 0px;
 }
 
 /* ----------------- main ----------------------------- */

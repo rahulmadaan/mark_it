@@ -85,7 +85,7 @@ const exitNameInput = () => {
 // };
 
 const getUserName = () => localStorage.getItem("userName") || "Click Here";
-const getBackground = () => localStorage.getItem("backGround") || "../library/backgroundImage.jpg";
+const getBackground = () => localStorage.getItem("background") || "../library/backgroundImage.jpg";
 
 const getGreetTime = () => {
   const today = new Date();
@@ -135,7 +135,7 @@ const initialize = () => {
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.addEventListener('load', event => {
-      localStorage.setItem("backGround", reader.result);
+      localStorage.setItem("background", reader.result);
       setBackground();
     });
     reader.readAsDataURL(file);
