@@ -1,41 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <link rel="stylesheet" href="../style/bookmarks.css" />
+    <script src="../src/bookmarks.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <header id="header">
+      <div class="header-bookmarks">
+        <a href="#" class="home-icon">&#8962;</a> Mark It
+      </div>
+    </header>
 
-<head>
-  <link rel="stylesheet" href="../style/bookmarks.css" />
-  <script src="../src/bookmarks.js"></script>
-  <title>Bookmarks</title>
-</head>
-
-<body>
-  <header>
-    <div class="header">
-      <a href="#" id="home-icon">&#8962;</a> <span>&nbsp;Mark It</span>
-    </div>
-  </header>
-
-  <main class="main">
     <div class="bookmark-category-popup" id="category-popup">
       <div class="popup-bookmarks-list" id="popup-list-div"></div>
     </div>
-    <!-- Uncategorized -->
-    <section class="bookmarks-main-body" id="uncat-bookmarks-section">
-      <div class="bookmarks-header">
-        <h3>Uncategorized bookmarks</h3>
+
+    <main id="bookmarks-main">
+      <div id="uncategorized-bookmarks-fixed">
+        <div id="uncategorized-bookmarks-header">
+          Uncategorized bookmarks
+        </div>
+        <div id="uncategorized-bookmarks-body">
+          <div id="uncategorized-bookmarks-body-bookmarks"></div>
+        </div>
       </div>
-
-      <div class="bookmarks-list-body" id="uncategorized-bookmarks"></div>
-    </section>
-
-    <!-- Categorized -->
-    <section class="bookmarks-main-body" id="cat-bookmarks-section">
-      <div class="bookmarks-header">
-        <h3>Categorized bookmarks</h3>
+      <div id="categorized-bookmarks-fixed">
+        <div id="categorized-bookmarks-header">
+          Categorized bookmarks
+        </div>
+        <div id="categorized-bookmarks-body"></div>
       </div>
-
-      <div class="cat-bookmarks-container" id="categorized-bookmarks-container"></div>
-    </section>
-  </main>
-</body>
-
+    </main>
+  </body>
 </html>

@@ -1,206 +1,104 @@
-/* ----------------- font family ----------------------------- */
-@font-face {
-  font-family: customOpenSans;
-  src: url(../library/OpenSansRegular.ttf);
-  font-weight: normal;
-}
-
-@font-face {
-  font-family: customOpenSans;
-  src: url(../library/OpenSansLight.ttf);
-  font-weight: lighter;
-}
-
-@font-face {
-  font-family: customOpenSans;
-  src: url(../library/OpenSansSemibold.ttf);
-  font-weight: bold;
-}
-
 html,
 body {
   width: 100%;
   height: 100%;
-  margin: 0px;
+  margin: 0;
   overflow: hidden;
+  font-size: 15px;
+  background-color: #bdd4e7;
+  background-image: linear-gradient(315deg, #bdd4e7 0%, #8693ab 74%);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-body {
-  /* background: linear-gradient(-45deg, tomato, crimson, firebrick);*/
-  background-size: 100% 100%;
-  /* animation: gradient 15s ease infinite; */
-  /* background-image: url("../library/nature-3082832_1920.jpg"); */
-  background-color: darkcyan;
-}
-
-/* ----------------- animation -----------------*/
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* links in the page */
-
-
-#home-icon,
-section a {
+a {
   text-decoration: none;
   color: black;
-  font-size: 16px;
 }
 
-section a:hover {
+a:hover {
   color: #909497;
-  /* font-size: 18px; */
 }
 
 /*--------------------- header------------------------ */
-header {
+#header {
   width: 100%;
   height: 10%;
-  color: #FFFFFF;
-  display: inline-flex;
-  justify-content: center;
-}
-
-#home-icon {
-  font-size: 36px;
-}
-
-.header {
-  width: auto;
-  height: auto;
-  display: flex;
-  align-items: center;
-  font-weight: bolder;
-  font-size: 28px;
+  font-size: 24px;
+  text-align: center;
 }
 
 /* ------------ main page -------------------- */
-.main {
+#bookmarks-main {
   width: 100%;
-  height: 90%;
+  height: 85%;
+
   display: flex;
-  align-items: flex-start;
-  flex-direction: row;
-  justify-content: space-around;
-  flex-wrap: nowrap;
-  overflow: hidden auto;
-}
-
-.bookmarks-main-body {
-  border: 2px solid white;
-  border-radius: 14px;
-  height: 90%;
-  margin-top: 12px;
-  margin-bottom: 16px;
-}
-
-#uncat-bookmarks-section {
-  flex: 1 1 auto;
-  margin-left: 12px;
-  margin-right: 12px;
-}
-
-#cat-bookmarks-section {
-  flex: 2 1 auto;
-  margin-right: 12px;
-}
-
-.bookmarks-header {
-  height: auto;
-  width: 100%;
-  border-bottom: 2px groove whitesmoke;
-  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
+  flex-direction: row;
+  padding: 5px;
+}
+/* -----------uncategorized bookmarks -------------------------- */
+#uncategorized-bookmarks-fixed {
+  width: 25%;
+  height: 100%;
+}
+#uncategorized-bookmarks-header {
+  width: 100%;
+  height: 5%;
   text-align: center;
   color: white;
-  display: block;
-  font-size: small;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.842);
-  /* font-weight: bold; */
-  /* font-family: customOpenSans; */
 }
+#uncategorized-bookmarks-body {
+  width: 100%;
+  height: 95%;
+  border-radius: 20px;
 
-/* -----------uncategorized bookmarks -------------------------- */
-.bookmarks-list-body {
   display: flex;
-  height: inherit;
   flex-direction: column;
+  background-color: #e5e7e9;
+}
+
+#uncategorized-bookmarks-body-bookmarks {
+  width: 100%;
+  height: 97%;
+  color: #2a3439;
+  overflow: auto;
+  border-radius: 20px;
+}
+
+.uncategorized-bookmarks-body-header {
+  width: 100%;
+  height: 3%;
   text-align: center;
-  overflow: hidden auto;
-  scroll-behavior: smooth;
+  background-color: #515585;
+  color: #c2b0c9;
+  border-bottom: 1px solid green;
+  cursor: pointer;
 }
 
-.bookmarks-list-body::-webkit-scrollbar {
-  width: 12px;
+.uncategorized-bookmark {
+  width: 95%;
+  height: auto;
+  margin: 1px;
+  text-align: center;
+  padding: 3%;
 }
-
-.bookmarks-list-body::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgb(23, 179, 23);
-  -webkit-box-shadow: inset 0 0 6px rgb(23, 179, 23);
-  border-radius: 8px;
-}
-
-.bookmarks-list-body::-webkit-scrollbar-thumb {
-  box-shadow: inset 0 0 6px rgb(23, 179, 23);
-  border-radius: 8px;
-  -webkit-box-shadow: inset 0 0 6px rgb(250, 0, 0);
-}
-
-.bookmark-div {
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-top: 4px;
-  width: auto;
-  margin: 3px;
-}
-
-.anchor-link {}
-
-
 /* ------------------ categorized bookmarks --------------------------- */
-.cat-bookmarks-container {
-  display: flex;
-  align-items: flex-start;
-  flex-flow: row wrap;
-  justify-content: flex-start;
-}
-
-.cat-bookmarks-container div {
-  flex-shrink: 0;
-  flex-grow: 0;
-}
-
-
-/* 
 #categorized-bookmarks-fixed {
   width: 72%;
   height: 100%;
 }
-
 #categorized-bookmarks-header {
   width: 100%;
   height: 5%;
   color: black;
   text-align: center;
 }
-
 .delete-category-btn {
   float: right;
   margin-right: 2%;
 }
-
 #categorized-bookmarks-body {
   width: 100%;
   height: 95%;
@@ -208,7 +106,6 @@ header {
   border-radius: 20px;
   overflow: scroll;
 }
-
 .category-new {
   width: 30%;
   height: 55%;
@@ -217,7 +114,6 @@ header {
   overflow: scroll;
   border-radius: 20px;
 }
-
 .category-heading {
   width: 100%;
   height: 7%;
@@ -248,37 +144,19 @@ header {
   padding: 2%;
 }
 
-
-
-
-#categorized-bookmarks-body {
-  width: 70%;
-  text-align: center;
-  margin-right: 20px;
-  background-color: #e73c7e;
-  display: inline-block;
-  text-align: center;
-  overflow: hidden;
-}
-
-#categorized-bookmarks {
-  overflow: auto;
-} */
-
 /* ------------------------popup---------------------------------- */
-/* .bookmark-category-popup {
+.bookmark-category-popup {
   background-color: #c2b0c9;
   z-index: 1;
   position: fixed;
   height: 50%;
-  width: 0%;
+  width: 0%; /* increase this to 50% to show popup */
   opacity: 1;
   left: 25%;
   top: 20%;
   border-radius: 10px;
   overflow: scroll;
 }
-
 .popup-header {
   width: 50%;
   height: 5%;
@@ -291,7 +169,6 @@ header {
   flex-direction: row;
   justify-content: space-between;
 }
-
 .popup-remove-category-btn {
   width: 10%;
   height: 100%;
@@ -303,13 +180,11 @@ header {
   cursor: pointer;
   outline: none;
 }
-
 .popup-heading {
   width: 70%;
   height: 100%;
   vertical-align: middle;
 }
-
 .popup-close-btn {
   width: 10%;
   height: 100%;
@@ -321,7 +196,6 @@ header {
   cursor: pointer;
   outline: none;
 }
-
 .popup-body {
   width: 90%;
   height: 90%;
@@ -354,15 +228,14 @@ header {
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
-} */
-
+}
 /* .popup-close-btn {
   width: 15%;
   height: 10%;
   text-align: center;
   float: right;
 } */
-/* .wip {
+.wip {
   float: right;
 }
 
@@ -378,4 +251,4 @@ header {
 
 .home-icon:hover {
   color: rgb(207, 202, 202);
-} */
+}
