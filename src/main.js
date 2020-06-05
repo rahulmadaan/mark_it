@@ -15,18 +15,6 @@ function addEventListeners() {
       disableNameEdit(nameElement);
     }
   });
-  element("optionArea").addEventListener("mouseenter", event => {
-    element("bookmarkButton").style.display = "flex";
-    element("imageButton").style.display = "flex";
-    element("drop-button").style.display = "none";
-    element("optionArea").style.height = "110px";
-  });
-  element("optionArea").addEventListener("mouseleave", event => {
-    element("bookmarkButton").style.display = "none";
-    element("imageButton").style.display = "none";
-    element("drop-button").style.display = "block";
-    element("optionArea").style.height = "60px";
-  });
   element('file-selector').addEventListener('change', event => {
     const file = event.target.files[0];
     const reader = new FileReader();
