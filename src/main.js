@@ -1,30 +1,10 @@
-const getUserName = () => localStorage.getItem("userName") || "Click Here";
-const getBackground = () => localStorage.getItem("background") || "../library/backgroundImage.jpg";
 const element = (id) => document.getElementById(id);
-
-function addEventListeners() {
-  const nameElement = element("name");
-  nameElement.addEventListener("click", event => {
-    enableNameEdit(nameElement);
-  });
-  nameElement.addEventListener("mouseout", event => {
-    disableNameEdit(nameElement);
-  });
-  nameElement.addEventListener("keypress", event => {
-    if (event.keyCode == 13) {
-      disableNameEdit(nameElement);
-    }
-  });
-  element('file-selector').addEventListener('change', event => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.addEventListener('load', event => {
-      localStorage.setItem("background", reader.result);
-      setBackground();
-    });
-    reader.readAsDataURL(file);
-  });
-}
+const setUserName = (newName) => localStorage.setItem("userName", newName);
+const getUserName = () => localStorage.getItem("userName") || "Click Here";
+const setBackground = () => element('body').style.backgroundImage = `url(${getBackground()})`;
+const getBackground = () => localStorage.getItem("background") || "../library/backgroundImage.jpg";
+const enableNameEdit = () => element("name").setAttribute("contenteditable", "true");
+const disableNameEdit = () => element("name").setAttribute("contenteditable", "false");
 
 const getGreetTime = () => {
   const today = new Date();
@@ -43,32 +23,47 @@ const getGreetTime = () => {
 };
 
 const greetUser = () => {
-  const greetTime = getGreetTime();
-  const userName = getUserName();
-  element("greeting").innerText = greetTime;
-  element("name").innerText = userName;
+  element("greeting").innerText = getGreetTime();
+  element("name").innerText = getUserName();
 };
 
-const setBackground = () => {
-  const imageFile = getBackground();
-  element('body').style.backgroundImage = `url(${imageFile})`;
-};
+const showNameLengthError = (nameElement) => {
+  disableNameEdit(nameElement);
+  element("name").style.color = "crimson";
+}
 
-const setUserName = () => {
-  const newUserName = element("name").innerText;
-  localStorage.setItem("userName", newUserName);
-};
+function addEventListeners() {
+  const nameElement = element("name");
+  nameElement.addEventListener("click", event => {
+    enableNameEdit(nameElement);
+  });
 
-const enableNameEdit = (nameElement) => {
-  console.log("why this");
-  nameElement.setAttribute("contenteditable", "true");
-};
+  nameElement.addEventListener("keypress", event => {
+    const newName = nameElement.innerText;
+    const nameCharLimit = 5;
+    if (newName.length <= nameCharLimit || event.keyCode == 13) {
+      element("name").style.color = "white";
+    } else {
+      showNameLengthError(nameElement);
+    }
+    if (event.keyCode == 13) {
+      disableNameEdit(nameElement);
+      if (newName.length <= nameCharLimit + 1) {
+        setUserName(newName);
+      }
+    }
+  });
 
-const disableNameEdit = (nameElement) => {
-  console.log("why this again");
-  nameElement.setAttribute("contenteditable", "false");
-  setUserName();
-};
+  element('file-selector').addEventListener('change', event => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.addEventListener('load', event => {
+      localStorage.setItem("background", reader.result);
+      setBackground();
+    });
+    reader.readAsDataURL(file);
+  });
+}
 
 const initialize = () => {
   addEventListeners();
