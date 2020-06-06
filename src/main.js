@@ -30,7 +30,7 @@ const greetUser = () => {
 const showNameLengthError = (nameElement) => {
   disableNameEdit(nameElement);
   element("name").style.color = "crimson";
-}
+};
 
 function addEventListeners() {
   const nameElement = element("name");
@@ -40,13 +40,13 @@ function addEventListeners() {
 
   nameElement.addEventListener("keypress", event => {
     const newName = nameElement.innerText;
-    const nameCharLimit = 5;
-    if (newName.length <= nameCharLimit || event.keyCode == 13) {
+    const nameCharLimit = 25;
+    if (newName.length <= nameCharLimit || event.keyCode === 13) {
       element("name").style.color = "white";
     } else {
       showNameLengthError(nameElement);
     }
-    if (event.keyCode == 13) {
+    if (event.keyCode === 13) {
       disableNameEdit(nameElement);
       if (newName.length <= nameCharLimit + 1) {
         setUserName(newName);
