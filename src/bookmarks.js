@@ -199,8 +199,8 @@ const showPopup = e => {
     createCatPopup(popup, categoryId, heading);
     return;
   }
-  const unCatList = document.getElementById("popup-list-div");
-  buildUnCatPopupBody(unCatList, heading);
+  //const unCatList = document.getElementById("popup-list-div");
+  buildUnCatPopupBody(popup, heading);
 };
 
 const createCategoryHeader = (heading, categoryId) => {

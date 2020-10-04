@@ -43,7 +43,7 @@ a:hover {
   background: #fff;
   padding: 2em;
   margin: 0 1em;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  box-shadow: 3px 3px 15px rgba(0,0,0,0.5);
   flex: 1;
   height: 100%;
 }
@@ -95,7 +95,7 @@ a:hover {
   background: #fff;
   padding: 2em;
   margin: 0 1em;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+  box-shadow: 3px 3px 15px rgba(0,0,0,0.5);
   flex: 3;
   height: 100%;
 }
@@ -144,8 +144,16 @@ a:hover {
   width: 99%;
   height: auto;
   text-align: center;
+  margin: 1px;
   vertical-align: middle;
-  padding: 2%;
+  padding: 3%;
+}
+
+.categorized-bookmark {
+    background-color: #d6ecff;
+}
+.categorized-bookmark:nth-child(even) {
+  background-color: #e5e7e9;
 }
 
 /* ------------------------popup---------------------------------- */
@@ -159,8 +167,9 @@ a:hover {
   left: 25%;
   top: 20%;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   overflow: hidden;
+  overflow-y: scroll;
   box-shadow: 2px 4px 19px rgba(0,0,0,0.5);
 }
 
@@ -173,11 +182,15 @@ a:hover {
 
 .popup-header {
   width: 100%;
-  height: 20%;
+  min-height: 10%;
   text-align: center;
   font-size: 20px;
   border-bottom: 1px solid black;
   display: flex;
+  order: 1;
+  top: 0;
+  position: sticky;
+  background-color: #bdd4e7;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
@@ -213,7 +226,6 @@ a:hover {
 }
 
 .popup-close-btn:hover > div {
-
   transform: rotate(45deg);
 }
 
@@ -226,8 +238,8 @@ a:hover {
   width: 100%;
   height: auto;
   border-bottom: 1px dashed gray;
-
   display: flex;
+  order: 2;
   flex-direction: row;
   justify-content: space-around;
   padding: 1%;
@@ -266,7 +278,7 @@ a:hover {
 
 .home-icon {
   text-decoration: none;
-  color: rgb(154, 147, 147);
+  color: white;
   font-size: 35px;
 }
 
