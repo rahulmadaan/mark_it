@@ -107,8 +107,15 @@ const buildPopupHeader = (heading, categoryId) => {
     "button",
     "popup-close-btn",
     "",
+    ""
+  );
+  const popupCloseInside = createElement(
+    "div",
+    "",
+    "",
     "&#x274C"
   );
+  popupCloseBtn.appendChild(popupCloseInside);
   popupCloseBtn.onclick = closePopup;
   popupCloseBtn.title = "Close";
 
@@ -192,6 +199,7 @@ const showPopup = e => {
     createCatPopup(popup, categoryId, heading);
     return;
   }
+  //const unCatList = document.getElementById("popup-list-div");
   buildUnCatPopupBody(popup, heading);
 };
 
