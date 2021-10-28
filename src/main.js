@@ -1,6 +1,6 @@
 const element = (id) => document.getElementById(id);
-const setUserName = (newName) => localStorage.setItem("userName", newName);
-const getUserName = () => localStorage.getItem("userName") || "Click Here";
+const setLocalItem = (key,value) => localStorage.setItem(key, value);
+const getLocalItem = (key) => localStorage.getItem(key);
 const setBackground = () => element('body').style.backgroundImage = `url(${getBackground()})`;
 const getBackground = () => localStorage.getItem("background") || "../library/backgroundImage.jpg";
 const enableNameEdit = () => element("name").setAttribute("contenteditable", "true");
@@ -24,18 +24,25 @@ const getGreetTime = () => {
 
 const greetUser = () => {
   element("greeting").innerText = getGreetTime();
-  element("name").innerText = getUserName();
+  if(getLocalItem("userName")){
+    element("name").innerText = getLocalItem("userName")
+  }
+  else {
+    element("name").innerText = "Guest";
+    element("name").click();
+    element("name").focus();
+  }
 };
 
 const showNameLengthError = (nameElement) => {
-  disableNameEdit(nameElement);
+  disableNameEdit();
   element("name").style.color = "crimson";
 };
 
 function addEventListeners() {
   const nameElement = element("name");
   nameElement.addEventListener("click", event => {
-    enableNameEdit(nameElement);
+    enableNameEdit();
   });
 
   nameElement.addEventListener("keypress", event => {
@@ -44,12 +51,12 @@ function addEventListeners() {
     if (newName.length <= nameCharLimit || event.keyCode === 13) {
       element("name").style.color = "white";
     } else {
-      showNameLengthError(nameElement);
+      showNameLengthError();
     }
     if (event.keyCode === 13) {
       disableNameEdit(nameElement);
       if (newName.length <= nameCharLimit + 1) {
-        setUserName(newName);
+        setLocalItem("userName", newName);
       }
     }
   });
